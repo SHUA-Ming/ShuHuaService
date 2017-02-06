@@ -131,7 +131,7 @@ public class GetVerifyCodeServlet extends BaseServlet implements
 
 					// Send sucessfuly
 					if (bclIsSend) {
-						mstUserResPara.setCode(CommCode.M_Y000000);
+						mstUserResPara.setCode(CommCode.M_SUCCESSC);
 						mstUserResPara.setMessage(verifycode);
 					}
 				}

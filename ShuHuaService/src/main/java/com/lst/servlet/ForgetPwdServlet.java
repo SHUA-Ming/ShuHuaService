@@ -129,7 +129,7 @@ public class ForgetPwdServlet extends BaseServlet implements
 					int count = mstUserMapper.forgetPwd(user);
 
 					if (count > 0) {
-						mstUserResPara.setCode(CommCode.M_Y000000);
+						mstUserResPara.setCode(CommCode.M_SUCCESSC);
 						mstUserResPara.setMessage(CommCode.M_Y000001);
 					} else {
 						mstUserResPara.setCode(CommCode.M_ERROR);

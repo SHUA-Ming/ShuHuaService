@@ -104,13 +104,13 @@ public class StatisticsServlet extends BaseServlet implements
 			String enddate = smmaryReqPara.getEnddate();
 
 			if (StringUtils.isBlank(userid)) {
-				summaryResPara.setCode(CommCode.M_Y000000);
+				summaryResPara.setCode(CommCode.M_ERROR);
 				summaryResPara.setMessage(CommCode.M_BP00301);
 			} else if (StringUtils.isBlank(startdate)) {
-				summaryResPara.setCode(CommCode.M_Y000000);
+				summaryResPara.setCode(CommCode.M_ERROR);
 				summaryResPara.setMessage(CommCode.M_BP00303);
 			} else if (StringUtils.isBlank(enddate)) {
-				summaryResPara.setCode(CommCode.M_Y000000);
+				summaryResPara.setCode(CommCode.M_ERROR);
 				summaryResPara.setMessage(CommCode.M_BP00304);
 			} else {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -122,12 +122,12 @@ public class StatisticsServlet extends BaseServlet implements
 				List<SummaryReocrd> srList = urm.getSummaryByUserid(map);
 
 				if (srList.size() > 0) {
-					summaryResPara.setCode(CommCode.M_Y000000);
+					summaryResPara.setCode(CommCode.M_SUCCESSC);
 					summaryResPara.setMessage(CommCode.M_Y000001);
 
 					summaryResPara.setSummaryReocrd(srList);
 				} else {
-					summaryResPara.setCode(CommCode.M_Y000000);
+					summaryResPara.setCode(CommCode.M_ERROR);
 					summaryResPara.setMessage(CommCode.M_BP00307);
 				}
 			}

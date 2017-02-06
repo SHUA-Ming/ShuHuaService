@@ -98,7 +98,7 @@ public class UploadFileServlet extends BaseServlet implements
 
 		BaseResponse res = new BaseResponse();
 
-		res.setCode(CommCode.M_Y000000);
+		res.setCode(CommCode.M_SUCCESSC);
 		res.setMessage(CommCode.M_Y000001);
 
 		File tempdir = new File(temp);

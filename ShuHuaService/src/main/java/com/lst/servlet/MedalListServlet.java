@@ -98,19 +98,19 @@ public class MedalListServlet extends BaseServlet implements
 			String userId = reocrdReqPara.getUserid();
 
 			if (StringUtils.isBlank(userId)) {
-				medalResPara.setCode(CommCode.M_Y000000);
+				medalResPara.setCode(CommCode.M_ERROR);
 				medalResPara.setMessage(CommCode.M_BP00301);
 			} else {
 				List<MstMedal> mstMedalList = mstMedalMapper
 						.selectByUserMedal(Integer.valueOf(userId));
 				
 				if (mstMedalList.size() > 0) {
-					medalResPara.setCode(CommCode.M_Y000000);
+					medalResPara.setCode(CommCode.M_SUCCESSC);
 					medalResPara.setMessage(CommCode.M_Y000001);
 					
 					medalResPara.setMstMedalList(mstMedalList);
 				} else {
-					medalResPara.setCode(CommCode.M_Y000000);
+					medalResPara.setCode(CommCode.M_ERROR);
 					medalResPara.setMessage(CommCode.M_BP00310);
 				}
 			}

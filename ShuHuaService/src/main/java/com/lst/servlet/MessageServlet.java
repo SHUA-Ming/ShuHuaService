@@ -108,7 +108,7 @@ public class MessageServlet extends BaseServlet implements
 
 			// 存在message数据
 			if (messageList.size() > 0) {
-				mesResPara.setCode(CommCode.M_Y000000);
+				mesResPara.setCode(CommCode.M_SUCCESSC);
 				mesResPara.setMessage(CommCode.M_Y000001);
 
 				mesResPara.setMessageList(messageList);

@@ -127,7 +127,7 @@ public class LoginServlet2 extends BaseServlet implements
 						mstUserResPara.setMessage(CommCode.M_A000026);
 					} else {
 						if (mstuser.getPassword().equals(password)) {
-							mstUserResPara.setCode(CommCode.M_Y000000);
+							mstUserResPara.setCode(CommCode.M_SUCCESSC);
 							mstUserResPara.setMessage(CommCode.M_Y000001);
 							mstUserResPara.setMstuser(mstuser);
 						} else {
@@ -178,7 +178,7 @@ public class LoginServlet2 extends BaseServlet implements
 
 						// 大于0 注册成功
 						if (count > 0) {
-							mstUserResPara.setCode(CommCode.M_Y000000);
+							mstUserResPara.setCode(CommCode.M_SUCCESSC);
 							mstUserResPara.setMessage(CommCode.M_Y000001);
 							mstUserResPara.setRegistered("0");
 							
@@ -189,7 +189,7 @@ public class LoginServlet2 extends BaseServlet implements
 							mstUserResPara.setMessage(CommCode.M_A000015);
 						}
 					} else {
-						mstUserResPara.setCode(CommCode.M_Y000000);
+						mstUserResPara.setCode(CommCode.M_SUCCESSC);
 						mstUserResPara.setMessage(CommCode.M_Y000001);
 						mstUserResPara.setRegistered("1");
 						

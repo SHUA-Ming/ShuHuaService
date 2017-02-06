@@ -138,7 +138,7 @@ public class ResetPwdServlet extends BaseServlet implements
 
 					if (count > 0) {
 						// TDo
-						mstUserResPara.setCode(CommCode.M_ERROR);
+						mstUserResPara.setCode(CommCode.M_SUCCESSC);
 						mstUserResPara.setMessage(CommCode.M_Y000001);
 						mstUserResPara.setMstuser(mstuser);
 

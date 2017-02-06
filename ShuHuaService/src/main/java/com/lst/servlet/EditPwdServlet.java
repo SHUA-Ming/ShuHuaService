@@ -142,7 +142,7 @@ public class EditPwdServlet extends BaseServlet implements
 								+ DateUtil.calLastedTime(startDate));
 
 						if (count > 0) {
-							mstUserResPara.setCode(CommCode.M_ERROR);
+							mstUserResPara.setCode(CommCode.M_SUCCESSC);
 							mstUserResPara.setMessage(CommCode.M_Y000001);
 							mstUserResPara.setMstuser(mstuser);
 						} else {

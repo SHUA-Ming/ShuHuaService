@@ -99,7 +99,7 @@ public class MachineServlet extends BaseServlet implements
 
 			if (StringUtils.isBlank(model)) {
 
-				machineResPara.setCode(CommCode.M_Y000000);
+				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00201);
 			} else {
 
@@ -112,11 +112,11 @@ public class MachineServlet extends BaseServlet implements
 				log.error("MstMachine result :" + mstMachine);
 
 				if (mstMachine == null) {
-					machineResPara.setCode(CommCode.M_Y000000);
+					machineResPara.setCode(CommCode.M_ERROR);
 					machineResPara.setMessage(CommCode.M_BP00202);
 				} else {
 					machineResPara.setMstMachine(mstMachine);
-					machineResPara.setCode(CommCode.M_Y000000);
+					machineResPara.setCode(CommCode.M_SUCCESSC);
 					machineResPara.setMessage(CommCode.M_Y000001);
 				}
 			}

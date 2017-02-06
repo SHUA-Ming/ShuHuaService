@@ -102,13 +102,13 @@ public class MaxHistoryServlet extends BaseServlet implements
 			String enddate = maxRecordReqPara.getEnddate();
 
 			if (StringUtils.isBlank(userid)) {
-				maxRecordResPara.setCode(CommCode.M_Y000000);
+				maxRecordResPara.setCode(CommCode.M_ERROR);
 				maxRecordResPara.setMessage(CommCode.M_BP00301);
 			} else if (StringUtils.isBlank(startdate)) {
-				maxRecordResPara.setCode(CommCode.M_Y000000);
+				maxRecordResPara.setCode(CommCode.M_ERROR);
 				maxRecordResPara.setMessage(CommCode.M_BP00303);
 			} else if (StringUtils.isBlank(enddate)) {
-				maxRecordResPara.setCode(CommCode.M_Y000000);
+				maxRecordResPara.setCode(CommCode.M_ERROR);
 				maxRecordResPara.setMessage(CommCode.M_BP00304);
 			} else {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -120,12 +120,12 @@ public class MaxHistoryServlet extends BaseServlet implements
 				MaxReocrd maxReocrd = urm.getMaxRecordByUserid(map);
 
 				if (maxReocrd !=null) {
-					maxRecordResPara.setCode(CommCode.M_Y000000);
+					maxRecordResPara.setCode(CommCode.M_SUCCESSC);
 					maxRecordResPara.setMessage(CommCode.M_Y000001);
 
 					maxRecordResPara.setMaxReocrd(maxReocrd);
 				} else {
-					maxRecordResPara.setCode(CommCode.M_Y000000);
+					maxRecordResPara.setCode(CommCode.M_ERROR);
 					maxRecordResPara.setMessage(CommCode.M_BP00307);
 				}
 			}

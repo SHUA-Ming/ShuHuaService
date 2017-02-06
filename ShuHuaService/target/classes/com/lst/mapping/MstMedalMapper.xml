@@ -309,7 +309,7 @@
   </update>
   
   <select id="selectMedal" resultMap="BaseResultMap">
-  	select 
+  	select
   	<include refid="Base_Column_List" />
   	from mst_medal
   </select>

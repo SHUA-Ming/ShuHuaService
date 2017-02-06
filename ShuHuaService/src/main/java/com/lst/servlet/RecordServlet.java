@@ -119,22 +119,22 @@ public class RecordServlet extends BaseServlet implements
 			String kilometer = reocrdReqPara.getKilometer();
 
 			if (StringUtils.isBlank(userid)) {
-				machineResPara.setCode(CommCode.M_Y000000);
+				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00301);
 			} else if (StringUtils.isBlank(machineid)) {
-				machineResPara.setCode(CommCode.M_Y000000);
+				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00302);
 			} else if (StringUtils.isBlank(startdate)) {
-				machineResPara.setCode(CommCode.M_Y000000);
+				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00303);
 			} else if (StringUtils.isBlank(enddate)) {
-				machineResPara.setCode(CommCode.M_Y000000);
+				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00304);
 			} else if (StringUtils.isBlank(kilometer)) {
-				machineResPara.setCode(CommCode.M_Y000000);
+				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00306);
 			} else if (StringUtils.isBlank(calorie)) {
-				machineResPara.setCode(CommCode.M_Y000000);
+				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00305);
 			} else {
 				Date startDate = new Date();
@@ -178,7 +178,7 @@ public class RecordServlet extends BaseServlet implements
 				// calculte the Totalcalorie
 				double totalCalorie = 0;
 				
-				if ( user.getTotalcalorie() != null){
+				if (user.getTotalcalorie() != null){
 					totalCalorie = user.getTotalcalorie().doubleValue();
 					totalCalorie += (new BigDecimal(calorie)).doubleValue();
 				}else{
@@ -221,14 +221,14 @@ public class RecordServlet extends BaseServlet implements
 						+ DateUtil.calLastedTime(startDate));
 
 				if (count > 0) {
-					machineResPara.setCode(CommCode.M_Y000000);
+					machineResPara.setCode(CommCode.M_SUCCESSC);
 					machineResPara.setMessage(CommCode.M_Y000001);
 					
 					user = mstUserMapper.selectByPrimaryKey(user.getId());
 					machineResPara.setUser(user);
 
 				} else {
-					machineResPara.setCode(CommCode.M_Y000000);
+					machineResPara.setCode(CommCode.M_ERROR);
 					machineResPara.setMessage(CommCode.M_A000015);
 				}
 			}

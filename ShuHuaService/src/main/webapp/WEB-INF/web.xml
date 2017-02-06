@@ -95,7 +95,6 @@
 		<servlet-name>RecordServlet</servlet-name>
 		<servlet-class>com.lst.servlet.RecordServlet</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>RecordServlet</servlet-name>
 		<url-pattern>/recordServlet/record/json</url-pattern>

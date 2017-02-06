@@ -280,4 +280,11 @@
       UpdateUser = #{updateuser,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByUserid" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_medal where UserId = #{userid,jdbcType=INTEGER}
+	</select>
+  
 </mapper>

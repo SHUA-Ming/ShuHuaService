@@ -101,98 +101,109 @@ public class MedalServlet extends BaseServlet implements
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
+			
 			// response
 			MedalResPara medalResPara = new MedalResPara();
 
 			// request
-			// Get the VerifyCode request parameter
 			ReocrdReqPara reocrdReqPara = getReqPara(req);
 
 			// usreid
 			String userid = reocrdReqPara.getUserid();
-
 			if (StringUtils.isBlank(userid)) {
-
-				medalResPara.setCode(CommCode.M_Y000000);
+				medalResPara.setCode(CommCode.M_ERROR);
 				medalResPara.setMessage(CommCode.M_BP00301);
 			} else {
-
 				PageBounds pageBounds = new PageBounds();
+				
 				// 查询健身记录
 				List<UserReocrd> recordList = userRecordMapper.selectByUserid(
 						Integer.parseInt(userid), pageBounds);
-
-				// 查询勋章等级
-				List<MstMedal> medalList = mstMedalMapper.selectMedal();
-
-				String flag = "";
-
-				double kilomster = 0;
-
-				int date = 0;
-				int recordListLen = recordList.size();
-
-				for (int i = 0; i < recordListLen; i++) {
-					UserReocrd userRecord = recordList.get(i);
-
-					kilomster += Double.parseDouble(userRecord.getKilometer()
-							.toString());
-
-					long end = userRecord.getEndtime().getTime();
-					long start = userRecord.getStarttime().getTime();
-
-					int time = (int) ((end - start) / 1000) / 60;
-
-					date += time;
-				}
-
-				int medalListLen = medalList.size();
-				for (int j = 0; j < medalListLen; j++) {
-					MstMedal medal = medalList.get(j);
-
-					// 按次数勋章等级来比较
-					if (medal.getType() == 60) {
-
-						if (medal.getRule() == recordList.size()) {
-							flag += medal.getId() + ",";
-							continue;
-						}
-						// 按距离勋章等级来比较
-					} else if (medal.getType() == 61) {
-
-						if (kilomster >= medal.getRule()) {
-
-							flag += medal.getId() + ",";
-							continue;
-						}
-						// 时间勋章
-					} else if (medal.getType() == 62) {
-
-						if (date >= medal.getRule()) {
-							flag += medal.getId() + ",";
-							continue;
+				if(recordList.size() > 0){
+					
+					// 查询所有勋章等级
+					List<MstMedal> medalList = mstMedalMapper.selectMedal();
+	
+					String flag = "";  //所得勋章id
+					double kilomster = 0;  //总公里数
+					int date = 0;  //总时间
+					int recordListLen = recordList.size();  //健身记录条数
+	
+					for (int i = 0; i < recordListLen; i++) {
+						UserReocrd userRecord = recordList.get(i);  //每条健身记录
+	
+						kilomster += Double.parseDouble(userRecord.getKilometer()
+								.toString());  //总公里数
+	
+						long end = userRecord.getEndtime().getTime();  //结束时间
+						long start = userRecord.getStarttime().getTime();  //开始时间
+	
+						int time = (int) ((end - start) / 1000) / 60;
+	
+						date += time;  //总时间
+					}
+	
+					int medalListLen = medalList.size();  //勋章等级条数
+					for (int j = 0; j < medalListLen; j++) {
+						MstMedal medal = medalList.get(j);  //每条勋章等级的内容
+						
+						if (medal.getType() == 60) {  // 按健身次数勋章等级来比较
+							if (medal.getRule() == recordListLen) {
+								flag += medal.getId() + ",";
+								continue;
+							}
+						} else if (medal.getType() == 61) {  // 按距离勋章等级来比较
+							if (kilomster >= medal.getRule()) {
+								flag += medal.getId() + ",";
+								continue;
+							}
+						} else if (medal.getType() == 62) {  // 时间勋章
+							if (date >= medal.getRule()) {
+								flag += medal.getId() + ",";
+								continue;
+							}
 						}
 					}
-				}
-
-				UserMedal userMedal = new UserMedal();
-
-				userMedal.setUserid(Integer.parseInt(userid));
-				userMedal.setCreatedate(new Date());
-				userMedal.setCreateuser(Integer.parseInt(userid));
-
-				int count = 0;
-				for (String str : flag.split(",")) {
-					userMedal.setMedalid(Integer.parseInt(str));
-					count = userMedalMapper.insert(userMedal);
-				}
-
-				if (count > 0) {
-					medalResPara.setCode(CommCode.M_Y000000);
-					medalResPara.setMessage(CommCode.M_Y000001);
-				} else {
-					medalResPara.setCode(CommCode.M_Y000000);
-					medalResPara.setMessage(CommCode.M_A000015);
+					
+					if(flag != ""){
+						UserMedal userMedal = new UserMedal();
+						userMedal.setUserid(Integer.parseInt(userid));
+						userMedal.setCreatedate(new Date());
+						userMedal.setCreateuser(Integer.parseInt(userid));
+		
+						int count = 0;
+						for (String str : flag.split(",")) {
+							
+							//获取勋章表该用户已有的勋章list
+							List<UserMedal> userMedalList = userMedalMapper.selectByUserid(Integer.parseInt(userid));
+							//获取新的勋章
+							int tag = 0;  //标注
+							for(int index = 0;index < userMedalList.size();index++){
+								int medalId = userMedalList.get(index).getMedalid();
+								int strMedalId = Integer.parseInt(str);
+								if(medalId == strMedalId){
+									tag = 1;
+								}
+							}
+							if(tag == 0){
+								userMedal.setMedalid(Integer.parseInt(str));
+								count = userMedalMapper.insert(userMedal);
+							}
+						}
+						if (count > 0) {
+							medalResPara.setCode(CommCode.M_SUCCESSC);
+							medalResPara.setMessage(CommCode.M_BP00312);
+						} else {
+							medalResPara.setCode(CommCode.M_ERROR);
+							medalResPara.setMessage(CommCode.M_BP00311);
+						}
+					}else{
+						medalResPara.setCode(CommCode.M_ERROR);
+						medalResPara.setMessage(CommCode.M_BP00310);
+					}
+				}else{
+					medalResPara.setCode(CommCode.M_ERROR);
+					medalResPara.setMessage(CommCode.M_BP00307);
 				}
 			}
 

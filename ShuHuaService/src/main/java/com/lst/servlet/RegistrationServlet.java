@@ -207,7 +207,7 @@ public class RegistrationServlet extends BaseServlet implements
 							int count = mstUserMapper.insert(user);
 							// 大于0 注册成功
 							if (count > 0) {
-								mstUserResPara.setCode(CommCode.M_Y000000);
+								mstUserResPara.setCode(CommCode.M_SUCCESSC);
 								mstUserResPara.setMessage(CommCode.M_Y000001);
 								mstUserResPara.setMstuser(user);
 							} else {
@@ -222,7 +222,7 @@ public class RegistrationServlet extends BaseServlet implements
 						
 						mstUserMapper.updateByPrimaryKeySelective(user);
 
-						mstUserResPara.setCode(CommCode.M_Y000000);
+						mstUserResPara.setCode(CommCode.M_SUCCESSC);
 						mstUserResPara.setMessage(CommCode.M_Y000001);
 						mstUserResPara.setMstuser(user);
 					}

@@ -88,7 +88,7 @@ public class RankListServlet extends BaseServlet implements
 			RankResPara rankResPara = new RankResPara();
 			List<MstUser> reocrdList = mstUserMapper.selectTop10();
 
-			rankResPara.setCode(CommCode.M_Y000000);
+			rankResPara.setCode(CommCode.M_SUCCESSC);
 			rankResPara.setMessage(CommCode.M_Y000001);
 			rankResPara.setUserList(reocrdList);
 

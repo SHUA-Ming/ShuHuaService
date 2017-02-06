@@ -22,7 +22,10 @@ package com.lst.common;
  */
 public class CommCode {
 	// 公共
-	public static final String M_ERROR = "1111111";
+	//public static final String M_ERROR = "1111111";
+	
+	public static final String M_ERROR = "0000000";  //code值-错误
+	public static final String M_SUCCESSC = "1111111";  //code值-正确
 
 	public static final String M_Y000000 = "0000000";
 	public static final String M_Y000001 = "success";
@@ -68,6 +71,8 @@ public class CommCode {
 	public static final String M_BP00309 = "每页条数为空";
 
 	public static final String M_BP00310 = "没有勋章";
+	public static final String M_BP00311 = "没有新勋章";
+	public static final String M_BP00312 = "添加勋章成功";
 
 	// 验证码
 	public static final int MIN_NO = 100000;

@@ -137,7 +137,7 @@ public class UploadBinaryServlet extends BaseServlet implements
 
 				// 大于0 更新URL成功
 				if (count > 0) {
-					imageResPara.setCode(CommCode.M_Y000000);
+					imageResPara.setCode(CommCode.M_SUCCESSC);
 					imageResPara.setMessage(CommCode.M_Y000001);
 
 					imageResPara.setFileUrl(urlPath + ".jpg");

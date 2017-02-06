@@ -111,7 +111,7 @@ public class SuggestServlet extends BaseServlet implements
 
 			if (StringUtils.isBlank(nickname)) {
 
-				machineResPara.setCode(CommCode.M_Y000000);
+				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00104);
 			} else {
 
@@ -125,7 +125,7 @@ public class SuggestServlet extends BaseServlet implements
 
 				if (mstUser == null) {
 
-					machineResPara.setCode(CommCode.M_Y000000);
+					machineResPara.setCode(CommCode.M_ERROR);
 					machineResPara.setMessage(CommCode.M_A000026);
 				} else {
 					Date startDate = new Date();
@@ -148,11 +148,11 @@ public class SuggestServlet extends BaseServlet implements
 							+ DateUtil.calLastedTime(startDate));
 
 					if (count > 0) {
-						machineResPara.setCode(CommCode.M_Y000000);
+						machineResPara.setCode(CommCode.M_SUCCESSC);
 						machineResPara.setMessage(CommCode.M_Y000001);
 
 					} else {
-						machineResPara.setCode(CommCode.M_Y000000);
+						machineResPara.setCode(CommCode.M_ERROR);
 						machineResPara.setMessage(CommCode.M_A000015);
 					}
 				}

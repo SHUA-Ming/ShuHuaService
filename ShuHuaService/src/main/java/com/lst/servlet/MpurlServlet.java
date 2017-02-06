@@ -88,7 +88,7 @@ public class MpurlServlet extends BaseServlet {
 			List<SystemSetting> settingList = systemSettingMapper.selectByurl();
 
 			mpurlResPara.setSettingList(settingList);
-			mpurlResPara.setCode(CommCode.M_Y000000);
+			mpurlResPara.setCode(CommCode.M_SUCCESSC);
 			mpurlResPara.setMessage(CommCode.M_Y000001);
 
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")

@@ -104,13 +104,13 @@ public class RecordListServlet extends BaseServlet implements
 			String pageSize = reocrdReqPara.getPageSize();
 
 			if (StringUtils.isBlank(userid)) {
-				recordResPara.setCode(CommCode.M_Y000000);
+				recordResPara.setCode(CommCode.M_ERROR);
 				recordResPara.setMessage(CommCode.M_BP00301);
 			} else if (StringUtils.isBlank(currentPage)) {
-				recordResPara.setCode(CommCode.M_Y000000);
+				recordResPara.setCode(CommCode.M_ERROR);
 				recordResPara.setMessage(CommCode.M_BP00308);
 			} else if (StringUtils.isBlank(pageSize)) {
-				recordResPara.setCode(CommCode.M_Y000000);
+				recordResPara.setCode(CommCode.M_ERROR);
 				recordResPara.setMessage(CommCode.M_BP00309);
 			} else {
 				PageBounds pageBounds = new PageBounds(
@@ -121,12 +121,12 @@ public class RecordListServlet extends BaseServlet implements
 						Integer.parseInt(userid), pageBounds);
 
 				if (reocrdList.size() > 0) {
-					recordResPara.setCode(CommCode.M_Y000000);
+					recordResPara.setCode(CommCode.M_SUCCESSC);
 					recordResPara.setMessage(CommCode.M_Y000001);
 					
 					recordResPara.setUserRecordList(reocrdList);
 				} else {
-					recordResPara.setCode(CommCode.M_Y000000);
+					recordResPara.setCode(CommCode.M_ERROR);
 					recordResPara.setMessage(CommCode.M_BP00307);
 				}
 			}
