@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lst.dao.MstUserMapper">
+	<resultMap id="BaseResultMap" type="com.lst.model.MstUser">
+		<id column="Id" property="id" jdbcType="INTEGER" />
+		<result column="Account" property="account" jdbcType="VARCHAR" />
+		<result column="Password" property="password" jdbcType="VARCHAR" />
+		<result column="Type" property="type" jdbcType="INTEGER" />
+		<result column="NickName" property="nickname" jdbcType="VARCHAR" />
+		<result column="Name" property="name" jdbcType="VARCHAR" />
+		<result column="Gender" property="gender" jdbcType="BIT" />
+		<result column="MobileNo" property="mobileno" jdbcType="VARCHAR" />
+		<result column="Weight" property="weight" jdbcType="DECIMAL" />
+		<result column="Height" property="height" jdbcType="INTEGER" />
+		<result column="Birthday" property="birthday" jdbcType="TIMESTAMP" />
+		<result column="Email" property="email" jdbcType="VARCHAR" />
+		<result column="Portrait" property="portrait" jdbcType="VARCHAR" />
+		<result column="Qq" property="qq" jdbcType="VARCHAR" />
+		<result column="QqPwd" property="qqpwd" jdbcType="VARCHAR" />
+		<result column="WeiXin" property="weixin" jdbcType="VARCHAR" />
+		<result column="WeiXinPwd" property="weixinpwd" jdbcType="VARCHAR" />
+		<result column="WeiBo" property="weibo" jdbcType="VARCHAR" />
+		<result column="WeiBoPwd" property="weibopwd" jdbcType="VARCHAR" />
+		<result column="TotalNumber" property="totalnumber" jdbcType="INTEGER" />
+		<result column="TotalCalorie" property="totalcalorie" jdbcType="DECIMAL" />
+		<result column="TotalKilometer" property="totalkilometer"
+			jdbcType="DECIMAL" />
+		<result column="TotalStep" property="totalstep" jdbcType="INTEGER" />
+		<result column="TotalDataTime" property="totaldatatime"
+			jdbcType="TIMESTAMP" />
+		<result column="TenKmRank" property="tenkmrank" jdbcType="INTEGER" />
+		<result column="FriendRank" property="friendrank" jdbcType="INTEGER" />
+		<result column="IsDeleted" property="isdeleted" jdbcType="BIT" />
+		<result column="Reserved1" property="reserved1" jdbcType="INTEGER" />
+		<result column="Reserved2" property="reserved2" jdbcType="INTEGER" />
+		<result column="Reserved3" property="reserved3" jdbcType="DECIMAL" />
+		<result column="Reserved4" property="reserved4" jdbcType="DECIMAL" />
+		<result column="Reserved5" property="reserved5" jdbcType="TIMESTAMP" />
+		<result column="Reserved6" property="reserved6" jdbcType="TIMESTAMP" />
+		<result column="Reserved7" property="reserved7" jdbcType="BIT" />
+		<result column="Reserved8" property="reserved8" jdbcType="BIT" />
+		<result column="Reserved9" property="reserved9" jdbcType="VARCHAR" />
+		<result column="Reserved10" property="reserved10" jdbcType="VARCHAR" />
+		<result column="Reserved11" property="reserved11" jdbcType="VARCHAR" />
+		<result column="Reserved12" property="reserved12" jdbcType="VARCHAR" />
+		<result column="Remark" property="remark" jdbcType="VARCHAR" />
+		<result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+		<result column="CreateUser" property="createuser" jdbcType="INTEGER" />
+		<result column="UpdateDate" property="updatedate" jdbcType="TIMESTAMP" />
+		<result column="UpdateUser" property="updateuser" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		Id, Account, Password, Type, NickName, Name, Gender,
+		MobileNo, Weight,
+		Height, Birthday,
+		Email, Portrait, Qq, QqPwd, WeiXin,
+		WeiXinPwd, WeiBo, WeiBoPwd, TotalNumber,
+		TotalCalorie,
+		TotalKilometer,
+		TotalStep, TotalDataTime, TenKmRank, FriendRank, IsDeleted,
+		Reserved1,
+		Reserved2, Reserved3, Reserved4, Reserved5, Reserved6, Reserved7,
+		Reserved8,
+		Reserved9,
+		Reserved10, Reserved11, Reserved12, Remark,
+		CreateDate, CreateUser, UpdateDate,
+		UpdateUser
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from mst_user
+		where Id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<!-- 登陆查询 -->
+	<select id="login" resultMap="BaseResultMap" parameterType="map">
+		select *
+		from mst_user
+		where account=#{account,jdbcType=VARCHAR} and
+		password=#{password,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 按条件查询会员 -->
+	<select id="selectuserbysql" resultMap="BaseResultMap"
+		parameterType="map">
+		select *
+		from mst_user
+		where isdeleted !=1
+		<if test="name != null">
+			and name=#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="nickname != null">
+			and nickname=#{nickname,jdbcType=VARCHAR}
+		</if>
+		<if test="gender != null">
+			and gender=#{gender,jdbcType=BIT}
+		</if>
+		order by ${sort} ${order}
+	</select>
+
+	<select id="checkname" resultMap="BaseResultMap" parameterType="map">
+		select *
+		from mst_user
+		where isdeleted !=1
+
+		<if test="nickname != null">
+			and nickname=#{nickname,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		mst_user
+		where Id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.lst.model.MstUser"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into mst_user (Id, Account,
+		Password,
+		Type, NickName, Name,
+		Gender, MobileNo, Weight,
+		Height,
+		Birthday, Email,
+		Portrait, Qq, QqPwd,
+		WeiXin, WeiXinPwd, WeiBo,
+		WeiBoPwd, TotalNumber, TotalCalorie,
+		TotalKilometer, TotalStep,
+		TotalDataTime,
+		TenKmRank, FriendRank, IsDeleted,
+		Reserved1, Reserved2,
+		Reserved3,
+		Reserved4, Reserved5, Reserved6,
+		Reserved7, Reserved8,
+		Reserved9,
+		Reserved10, Reserved11, Reserved12,
+		Remark, CreateDate,
+		CreateUser,
+		UpdateDate, UpdateUser)
+		values (#{id,jdbcType=INTEGER},
+		#{account,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{type,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{gender,jdbcType=BIT},
+		#{mobileno,jdbcType=VARCHAR},
+		#{weight,jdbcType=DECIMAL},
+		#{height,jdbcType=INTEGER}, #{birthday,jdbcType=TIMESTAMP},
+		#{email,jdbcType=VARCHAR},
+		#{portrait,jdbcType=VARCHAR},
+		#{qq,jdbcType=VARCHAR},
+		#{qqpwd,jdbcType=VARCHAR},
+		#{weixin,jdbcType=VARCHAR}, #{weixinpwd,jdbcType=VARCHAR},
+		#{weibo,jdbcType=VARCHAR},
+		#{weibopwd,jdbcType=VARCHAR},
+		#{totalnumber,jdbcType=INTEGER},
+		#{totalcalorie,jdbcType=DECIMAL},
+		#{totalkilometer,jdbcType=DECIMAL}, #{totalstep,jdbcType=INTEGER},
+		#{totaldatatime,jdbcType=TIMESTAMP},
+		#{tenkmrank,jdbcType=INTEGER},
+		#{friendrank,jdbcType=INTEGER},
+		#{isdeleted,jdbcType=BIT},
+		#{reserved1,jdbcType=INTEGER}, #{reserved2,jdbcType=INTEGER},
+		#{reserved3,jdbcType=DECIMAL},
+		#{reserved4,jdbcType=DECIMAL},
+		#{reserved5,jdbcType=TIMESTAMP},
+		#{reserved6,jdbcType=TIMESTAMP},
+		#{reserved7,jdbcType=BIT}, #{reserved8,jdbcType=BIT},
+		#{reserved9,jdbcType=VARCHAR},
+		#{reserved10,jdbcType=VARCHAR},
+		#{reserved11,jdbcType=VARCHAR},
+		#{reserved12,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP},
+		#{createuser,jdbcType=INTEGER},
+		#{updatedate,jdbcType=TIMESTAMP},
+		#{updateuser,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.lst.model.MstUser">
+		insert into mst_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				Id,
+			</if>
+			<if test="account != null">
+				Account,
+			</if>
+			<if test="password != null">
+				Password,
+			</if>
+			<if test="type != null">
+				Type,
+			</if>
+			<if test="nickname != null">
+				NickName,
+			</if>
+			<if test="name != null">
+				Name,
+			</if>
+			<if test="gender != null">
+				Gender,
+			</if>
+			<if test="mobileno != null">
+				MobileNo,
+			</if>
+			<if test="weight != null">
+				Weight,
+			</if>
+			<if test="height != null">
+				Height,
+			</if>
+			<if test="birthday != null">
+				Birthday,
+			</if>
+			<if test="email != null">
+				Email,
+			</if>
+			<if test="portrait != null">
+				Portrait,
+			</if>
+			<if test="qq != null">
+				Qq,
+			</if>
+			<if test="qqpwd != null">
+				QqPwd,
+			</if>
+			<if test="weixin != null">
+				WeiXin,
+			</if>
+			<if test="weixinpwd != null">
+				WeiXinPwd,
+			</if>
+			<if test="weibo != null">
+				WeiBo,
+			</if>
+			<if test="weibopwd != null">
+				WeiBoPwd,
+			</if>
+			<if test="totalnumber != null">
+				TotalNumber,
+			</if>
+			<if test="totalcalorie != null">
+				TotalCalorie,
+			</if>
+			<if test="totalkilometer != null">
+				TotalKilometer,
+			</if>
+			<if test="totalstep != null">
+				TotalStep,
+			</if>
+			<if test="totaldatatime != null">
+				TotalDataTime,
+			</if>
+			<if test="tenkmrank != null">
+				TenKmRank,
+			</if>
+			<if test="friendrank != null">
+				FriendRank,
+			</if>
+			<if test="isdeleted != null">
+				IsDeleted,
+			</if>
+			<if test="reserved1 != null">
+				Reserved1,
+			</if>
+			<if test="reserved2 != null">
+				Reserved2,
+			</if>
+			<if test="reserved3 != null">
+				Reserved3,
+			</if>
+			<if test="reserved4 != null">
+				Reserved4,
+			</if>
+			<if test="reserved5 != null">
+				Reserved5,
+			</if>
+			<if test="reserved6 != null">
+				Reserved6,
+			</if>
+			<if test="reserved7 != null">
+				Reserved7,
+			</if>
+			<if test="reserved8 != null">
+				Reserved8,
+			</if>
+			<if test="reserved9 != null">
+				Reserved9,
+			</if>
+			<if test="reserved10 != null">
+				Reserved10,
+			</if>
+			<if test="reserved11 != null">
+				Reserved11,
+			</if>
+			<if test="reserved12 != null">
+				Reserved12,
+			</if>
+			<if test="remark != null">
+				Remark,
+			</if>
+			<if test="createdate != null">
+				CreateDate,
+			</if>
+			<if test="createuser != null">
+				CreateUser,
+			</if>
+			<if test="updatedate != null">
+				UpdateDate,
+			</if>
+			<if test="updateuser != null">
+				UpdateUser,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="account != null">
+				#{account,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="nickname != null">
+				#{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=BIT},
+			</if>
+			<if test="mobileno != null">
+				#{mobileno,jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null">
+				#{weight,jdbcType=DECIMAL},
+			</if>
+			<if test="height != null">
+				#{height,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="portrait != null">
+				#{portrait,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				#{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="qqpwd != null">
+				#{qqpwd,jdbcType=VARCHAR},
+			</if>
+			<if test="weixin != null">
+				#{weixin,jdbcType=VARCHAR},
+			</if>
+			<if test="weixinpwd != null">
+				#{weixinpwd,jdbcType=VARCHAR},
+			</if>
+			<if test="weibo != null">
+				#{weibo,jdbcType=VARCHAR},
+			</if>
+			<if test="weibopwd != null">
+				#{weibopwd,jdbcType=VARCHAR},
+			</if>
+			<if test="totalnumber != null">
+				#{totalnumber,jdbcType=INTEGER},
+			</if>
+			<if test="totalcalorie != null">
+				#{totalcalorie,jdbcType=DECIMAL},
+			</if>
+			<if test="totalkilometer != null">
+				#{totalkilometer,jdbcType=DECIMAL},
+			</if>
+			<if test="totalstep != null">
+				#{totalstep,jdbcType=INTEGER},
+			</if>
+			<if test="totaldatatime != null">
+				#{totaldatatime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tenkmrank != null">
+				#{tenkmrank,jdbcType=INTEGER},
+			</if>
+			<if test="friendrank != null">
+				#{friendrank,jdbcType=INTEGER},
+			</if>
+			<if test="isdeleted != null">
+				#{isdeleted,jdbcType=BIT},
+			</if>
+			<if test="reserved1 != null">
+				#{reserved1,jdbcType=INTEGER},
+			</if>
+			<if test="reserved2 != null">
+				#{reserved2,jdbcType=INTEGER},
+			</if>
+			<if test="reserved3 != null">
+				#{reserved3,jdbcType=DECIMAL},
+			</if>
+			<if test="reserved4 != null">
+				#{reserved4,jdbcType=DECIMAL},
+			</if>
+			<if test="reserved5 != null">
+				#{reserved5,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reserved6 != null">
+				#{reserved6,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reserved7 != null">
+				#{reserved7,jdbcType=BIT},
+			</if>
+			<if test="reserved8 != null">
+				#{reserved8,jdbcType=BIT},
+			</if>
+			<if test="reserved9 != null">
+				#{reserved9,jdbcType=VARCHAR},
+			</if>
+			<if test="reserved10 != null">
+				#{reserved10,jdbcType=VARCHAR},
+			</if>
+			<if test="reserved11 != null">
+				#{reserved11,jdbcType=VARCHAR},
+			</if>
+			<if test="reserved12 != null">
+				#{reserved12,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createuser != null">
+				#{createuser,jdbcType=INTEGER},
+			</if>
+			<if test="updatedate != null">
+				#{updatedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateuser != null">
+				#{updateuser,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.lst.model.MstUser">
+		update mst_user
+		<set>
+			<if test="account != null">
+				Account = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				Password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				Type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="nickname != null">
+				NickName = #{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				Name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				Gender = #{gender,jdbcType=BIT},
+			</if>
+			<if test="mobileno != null">
+				MobileNo = #{mobileno,jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null">
+				Weight = #{weight,jdbcType=DECIMAL},
+			</if>
+			<if test="height != null">
+				Height = #{height,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				Birthday = #{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="email != null">
+				Email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="portrait != null">
+				Portrait = #{portrait,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				Qq = #{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="qqpwd != null">
+				QqPwd = #{qqpwd,jdbcType=VARCHAR},
+			</if>
+			<if test="weixin != null">
+				WeiXin = #{weixin,jdbcType=VARCHAR},
+			</if>
+			<if test="weixinpwd != null">
+				WeiXinPwd = #{weixinpwd,jdbcType=VARCHAR},
+			</if>
+			<if test="weibo != null">
+				WeiBo = #{weibo,jdbcType=VARCHAR},
+			</if>
+			<if test="weibopwd != null">
+				WeiBoPwd = #{weibopwd,jdbcType=VARCHAR},
+			</if>
+			<if test="totalnumber != null">
+				TotalNumber = #{totalnumber,jdbcType=INTEGER},
+			</if>
+			<if test="totalcalorie != null">
+				TotalCalorie = #{totalcalorie,jdbcType=DECIMAL},
+			</if>
+			<if test="totalkilometer != null">
+				TotalKilometer = #{totalkilometer,jdbcType=DECIMAL},
+			</if>
+			<if test="totalstep != null">
+				TotalStep = #{totalstep,jdbcType=INTEGER},
+			</if>
+			<if test="totaldatatime != null">
+				TotalDataTime = #{totaldatatime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tenkmrank != null">
+				TenKmRank = #{tenkmrank,jdbcType=INTEGER},
+			</if>
+			<if test="friendrank != null">
+				FriendRank = #{friendrank,jdbcType=INTEGER},
+			</if>
+			<if test="isdeleted != null">
+				IsDeleted = #{isdeleted,jdbcType=BIT},
+			</if>
+			<if test="reserved1 != null">
+				Reserved1 = #{reserved1,jdbcType=INTEGER},
+			</if>
+			<if test="reserved2 != null">
+				Reserved2 = #{reserved2,jdbcType=INTEGER},
+			</if>
+			<if test="reserved3 != null">
+				Reserved3 = #{reserved3,jdbcType=DECIMAL},
+			</if>
+			<if test="reserved4 != null">
+				Reserved4 = #{reserved4,jdbcType=DECIMAL},
+			</if>
+			<if test="reserved5 != null">
+				Reserved5 = #{reserved5,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reserved6 != null">
+				Reserved6 = #{reserved6,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reserved7 != null">
+				Reserved7 = #{reserved7,jdbcType=BIT},
+			</if>
+			<if test="reserved8 != null">
+				Reserved8 = #{reserved8,jdbcType=BIT},
+			</if>
+			<if test="reserved9 != null">
+				Reserved9 = #{reserved9,jdbcType=VARCHAR},
+			</if>
+			<if test="reserved10 != null">
+				Reserved10 = #{reserved10,jdbcType=VARCHAR},
+			</if>
+			<if test="reserved11 != null">
+				Reserved11 = #{reserved11,jdbcType=VARCHAR},
+			</if>
+			<if test="reserved12 != null">
+				Reserved12 = #{reserved12,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				Remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createdate != null">
+				CreateDate = #{createdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createuser != null">
+				CreateUser = #{createuser,jdbcType=INTEGER},
+			</if>
+			<if test="updatedate != null">
+				UpdateDate = #{updatedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateuser != null">
+				UpdateUser = #{updateuser,jdbcType=INTEGER},
+			</if>
+		</set>
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.lst.model.MstUser">
+		update mst_user
+		set Account = #{account,jdbcType=VARCHAR},
+		Password =
+		#{password,jdbcType=VARCHAR},
+		Type = #{type,jdbcType=INTEGER},
+		NickName
+		= #{nickname,jdbcType=VARCHAR},
+		Name = #{name,jdbcType=VARCHAR},
+		Gender
+		= #{gender,jdbcType=BIT},
+		MobileNo = #{mobileno,jdbcType=VARCHAR},
+		Weight = #{weight,jdbcType=DECIMAL},
+		Height =
+		#{height,jdbcType=INTEGER},
+		Birthday = #{birthday,jdbcType=TIMESTAMP},
+		Email = #{email,jdbcType=VARCHAR},
+		Portrait =
+		#{portrait,jdbcType=VARCHAR},
+		Qq = #{qq,jdbcType=VARCHAR},
+		QqPwd =
+		#{qqpwd,jdbcType=VARCHAR},
+		WeiXin = #{weixin,jdbcType=VARCHAR},
+		WeiXinPwd = #{weixinpwd,jdbcType=VARCHAR},
+		WeiBo =
+		#{weibo,jdbcType=VARCHAR},
+		WeiBoPwd = #{weibopwd,jdbcType=VARCHAR},
+		TotalNumber = #{totalnumber,jdbcType=INTEGER},
+		TotalCalorie =
+		#{totalcalorie,jdbcType=DECIMAL},
+		TotalKilometer =
+		#{totalkilometer,jdbcType=DECIMAL},
+		TotalStep =
+		#{totalstep,jdbcType=INTEGER},
+		TotalDataTime =
+		#{totaldatatime,jdbcType=TIMESTAMP},
+		TenKmRank =
+		#{tenkmrank,jdbcType=INTEGER},
+		FriendRank =
+		#{friendrank,jdbcType=INTEGER},
+		IsDeleted = #{isdeleted,jdbcType=BIT},
+		Reserved1 = #{reserved1,jdbcType=INTEGER},
+		Reserved2 =
+		#{reserved2,jdbcType=INTEGER},
+		Reserved3 =
+		#{reserved3,jdbcType=DECIMAL},
+		Reserved4 =
+		#{reserved4,jdbcType=DECIMAL},
+		Reserved5 =
+		#{reserved5,jdbcType=TIMESTAMP},
+		Reserved6 =
+		#{reserved6,jdbcType=TIMESTAMP},
+		Reserved7 = #{reserved7,jdbcType=BIT},
+		Reserved8 = #{reserved8,jdbcType=BIT},
+		Reserved9 =
+		#{reserved9,jdbcType=VARCHAR},
+		Reserved10 =
+		#{reserved10,jdbcType=VARCHAR},
+		Reserved11 =
+		#{reserved11,jdbcType=VARCHAR},
+		Reserved12 =
+		#{reserved12,jdbcType=VARCHAR},
+		Remark = #{remark,jdbcType=VARCHAR},
+		CreateDate = #{createdate,jdbcType=TIMESTAMP},
+		CreateUser =
+		#{createuser,jdbcType=INTEGER},
+		UpdateDate =
+		#{updatedate,jdbcType=TIMESTAMP},
+		UpdateUser =
+		#{updateuser,jdbcType=INTEGER}
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 登录 -->
+	<select id="selectByNikename" resultMap="BaseResultMap"
+		parameterType="com.lst.model.MstUser">
+		select * from mst_user where NickName = #{nickname,jdbcType=VARCHAR}
+		<if test="type != null">
+			and Type = #{type,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="selectByQQName" resultMap="BaseResultMap"
+		parameterType="com.lst.model.MstUser">
+		select * from mst_user where Qq = #{qq,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByWeiXinName" resultMap="BaseResultMap"
+		parameterType="com.lst.model.MstUser">
+		select * from mst_user where WeiXin =
+		#{weixin,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByWeiBoName" resultMap="BaseResultMap"
+		parameterType="com.lst.model.MstUser">
+		select * from mst_user where WeiBo =
+		#{weibo,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByMobileno" resultMap="BaseResultMap"
+		parameterType="com.lst.model.MstUser">
+		select * from mst_user where Mobileno =
+		#{mobileno,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectById" resultMap="BaseResultMap" parameterType="com.lst.model.MstUser">
+		select * from mst_user where Id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectTop10" resultMap="BaseResultMap"
+		parameterType="com.lst.model.MstUser">
+		select * from mst_user order by TotalCalorie desc limit
+		20
+	</select>
+	
+	<select id="selectUser" resultMap="BaseResultMap"
+		parameterType="com.lst.model.MstUser">
+		select * from mst_user
+	</select>
+
+	<!-- 修改密码 -->
+	<update id="updateResetPwd" parameterType="com.lst.model.MstUser">
+		update mst_user
+		set
+		Password = #{password,jdbcType=VARCHAR},
+		UpdateDate =
+		#{updatedate,jdbcType=TIMESTAMP}
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!--忘记密码 -->
+	<update id="forgetPwd" parameterType="com.lst.model.MstUser">
+		update mst_user
+		set Password
+		= #{password,jdbcType=VARCHAR}
+		where Mobileno =
+		#{mobileno,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 修改头像 -->
+	<update id="updateIcon" parameterType="com.lst.model.MstUser">
+		update mst_user
+		set
+		Reserved9 = #{reserved9,jdbcType=VARCHAR}
+		where Id =
+		#{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

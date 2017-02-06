@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>TestServlet</servlet-name>
+		<servlet-class>com.lst.servlet.TestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TestServlet</servlet-name>
+		<url-pattern>/TestServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- 注册 -->
+	<servlet>
+		<servlet-name>RegisterServlet</servlet-name>
+		<servlet-class>com.lst.servlet.RegistrationServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RegisterServlet</servlet-name>
+		<url-pattern>/registrationServlet/register/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 登录 -->
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>com.lst.servlet.LoginServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/loginServlet/login/json</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LoginServlet2</servlet-name>
+		<servlet-class>com.lst.servlet.LoginServlet2</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LoginServlet2</servlet-name>
+		<url-pattern>/loginServlet2/login/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 重置密码 -->
+	<servlet>
+		<servlet-name>ResetPwdServlet</servlet-name>
+		<servlet-class>com.lst.servlet.ResetPwdServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ResetPwdServlet</servlet-name>
+		<url-pattern>/resetPwdServlet/resetPwd/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 修改密码 -->
+	<servlet>
+		<servlet-name>EditPwdServlet</servlet-name>
+		<servlet-class>com.lst.servlet.EditPwdServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EditPwdServlet</servlet-name>
+		<url-pattern>/editPwdServlet/editPwd/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 设备信息 -->
+	<servlet>
+		<servlet-name>MachineServlet</servlet-name>
+		<servlet-class>com.lst.servlet.MachineServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MachineServlet</servlet-name>
+		<url-pattern>/machineServlet/machine/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 反馈 -->
+	<servlet>
+		<servlet-name>SuggestServlet</servlet-name>
+		<servlet-class>com.lst.servlet.SuggestServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SuggestServlet</servlet-name>
+		<url-pattern>/suggestServlet/suggest/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 健身记录保存 -->
+	<servlet>
+		<servlet-name>RecordServlet</servlet-name>
+		<servlet-class>com.lst.servlet.RecordServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RecordServlet</servlet-name>
+		<url-pattern>/recordServlet/record/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 健身记录列表 -->
+	<servlet>
+		<servlet-name>RecordListServlet</servlet-name>
+		<servlet-class>com.lst.servlet.RecordListServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RecordListServlet</servlet-name>
+		<url-pattern>/recordListServlet/recordList/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 音乐播放网络地址 -->
+	<servlet>
+		<servlet-name>MpurlServlet</servlet-name>
+		<servlet-class>com.lst.servlet.MpurlServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MpurlServlet</servlet-name>
+		<url-pattern>/mpurlServlet/mpurl/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 设置勋章 -->
+	<servlet>
+		<servlet-name>MedalServlet</servlet-name>
+		<servlet-class>com.lst.servlet.MedalServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MedalServlet</servlet-name>
+		<url-pattern>/medalServlet/medal/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 返回勋章 -->
+	<servlet>
+		<servlet-name>MedalListServlet</servlet-name>
+		<servlet-class>com.lst.servlet.MedalListServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MedalListServlet</servlet-name>
+		<url-pattern>/medalListServlet/medalList/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- rank -->
+	<servlet>
+		<servlet-name>RankListServlet</servlet-name>
+		<servlet-class>com.lst.servlet.RankListServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RankListServlet</servlet-name>
+		<url-pattern>/rankListServlet/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- uploadimg -->
+	<servlet>
+		<servlet-name>UploadFileServlet</servlet-name>
+		<servlet-class>com.lst.servlet.UploadFileServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UploadFileServlet</servlet-name>
+		<url-pattern>/uploadfile</url-pattern>
+	</servlet-mapping>
+
+	<!-- change icon -->
+	<servlet>
+		<servlet-name>ChangeIconServlet</servlet-name>
+		<servlet-class>com.lst.servlet.ChangeIconServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ChangeIconServlet</servlet-name>
+		<url-pattern>/changeIconServlet/changeIcon/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- getverify code -->
+	<servlet>
+		<servlet-name>GetVerifyCodeServlet</servlet-name>
+		<servlet-class>com.lst.servlet.GetVerifyCodeServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GetVerifyCodeServlet</servlet-name>
+		<url-pattern>/getVerifyCodeServlet/getCode/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- forgetpwd -->
+	<servlet>
+		<servlet-name>ForgetPwdServlet</servlet-name>
+		<servlet-class>com.lst.servlet.ForgetPwdServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ForgetPwdServlet</servlet-name>
+		<url-pattern>/forgetPwdServlet/forget/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 修改身高体重-->
+	<servlet>
+		<servlet-name>UpdateHWServlet</servlet-name>
+		<servlet-class>com.lst.servlet.UpdateHWServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UpdateHWServlet</servlet-name>
+		<url-pattern>/UpdateHWServlet/record/json</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 修改身高体重-->
+	<servlet>
+		<servlet-name>UploadBinaryServlet</servlet-name>
+		<servlet-class>com.lst.servlet.UploadBinaryServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UploadBinaryServlet</servlet-name>
+		<url-pattern>/UploadBinaryServlet/record/json</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 获取系统信息-->
+	<servlet>
+		<servlet-name>MessageServlet</servlet-name>
+		<servlet-class>com.lst.servlet.MessageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MessageServlet</servlet-name>
+		<url-pattern>/MessageServlet/record/json</url-pattern>
+	</servlet-mapping>
+	
+	<!--统计分析 -->
+	<servlet>
+		<servlet-name>StatisticsServlet</servlet-name>
+		<servlet-class>com.lst.servlet.StatisticsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StatisticsServlet</servlet-name>
+		<url-pattern>/StatisticsServlet/record/json</url-pattern>
+	</servlet-mapping>
+	
+	<!--最大纪录 -->
+	<servlet>
+		<servlet-name>MaxHistoryServlet</servlet-name>
+		<servlet-class>com.lst.servlet.MaxHistoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MaxHistoryServlet</servlet-name>
+		<url-pattern>/MaxHistoryServlet/record/json</url-pattern>
+	</servlet-mapping>
+	
+
+	<!-- Druid Web Stat Filter -->
+	<filter>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter
+		</filter-class>
+		<init-param>
+			<param-name>exclusions</param-name>
+			<param-value>/static/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
+			</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- druid监控 -->
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/lotusoftec/*</url-pattern>
+	</servlet-mapping>
+</web-app>

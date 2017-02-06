@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lst.dao.UseWeightMapper" >
+  <resultMap id="BaseResultMap" type="com.lst.model.UseWeight" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="StatisticsDate" property="statisticsdate" jdbcType="TIMESTAMP" />
+    <result column="Weight" property="weight" jdbcType="DECIMAL" />
+    <result column="IsDeleted" property="isdeleted" jdbcType="BIT" />
+    <result column="Reserved1" property="reserved1" jdbcType="INTEGER" />
+    <result column="Reserved2" property="reserved2" jdbcType="INTEGER" />
+    <result column="Reserved3" property="reserved3" jdbcType="DECIMAL" />
+    <result column="Reserved4" property="reserved4" jdbcType="DECIMAL" />
+    <result column="Reserved5" property="reserved5" jdbcType="TIMESTAMP" />
+    <result column="Reserved6" property="reserved6" jdbcType="TIMESTAMP" />
+    <result column="Reserved7" property="reserved7" jdbcType="BIT" />
+    <result column="Reserved8" property="reserved8" jdbcType="BIT" />
+    <result column="Reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="Reserved10" property="reserved10" jdbcType="VARCHAR" />
+    <result column="Reserved11" property="reserved11" jdbcType="VARCHAR" />
+    <result column="Reserved12" property="reserved12" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="CreateUser" property="createuser" jdbcType="INTEGER" />
+    <result column="UpdateDate" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="UpdateUser" property="updateuser" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, UserId, StatisticsDate, Weight, IsDeleted, Reserved1, Reserved2, Reserved3, Reserved4, 
+    Reserved5, Reserved6, Reserved7, Reserved8, Reserved9, Reserved10, Reserved11, Reserved12, 
+    Remark, CreateDate, CreateUser, UpdateDate, UpdateUser
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from use_weight
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from use_weight
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lst.model.UseWeight" >
+    insert into use_weight (Id, UserId, StatisticsDate, 
+      Weight, IsDeleted, Reserved1, 
+      Reserved2, Reserved3, Reserved4, 
+      Reserved5, Reserved6, Reserved7, 
+      Reserved8, Reserved9, Reserved10, 
+      Reserved11, Reserved12, Remark, 
+      CreateDate, CreateUser, UpdateDate, 
+      UpdateUser)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{statisticsdate,jdbcType=TIMESTAMP}, 
+      #{weight,jdbcType=DECIMAL}, #{isdeleted,jdbcType=BIT}, #{reserved1,jdbcType=INTEGER}, 
+      #{reserved2,jdbcType=INTEGER}, #{reserved3,jdbcType=DECIMAL}, #{reserved4,jdbcType=DECIMAL}, 
+      #{reserved5,jdbcType=TIMESTAMP}, #{reserved6,jdbcType=TIMESTAMP}, #{reserved7,jdbcType=BIT}, 
+      #{reserved8,jdbcType=BIT}, #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR}, 
+      #{reserved11,jdbcType=VARCHAR}, #{reserved12,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{createuser,jdbcType=INTEGER}, #{updatedate,jdbcType=TIMESTAMP}, 
+      #{updateuser,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lst.model.UseWeight" >
+    insert into use_weight
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="statisticsdate != null" >
+        StatisticsDate,
+      </if>
+      <if test="weight != null" >
+        Weight,
+      </if>
+      <if test="isdeleted != null" >
+        IsDeleted,
+      </if>
+      <if test="reserved1 != null" >
+        Reserved1,
+      </if>
+      <if test="reserved2 != null" >
+        Reserved2,
+      </if>
+      <if test="reserved3 != null" >
+        Reserved3,
+      </if>
+      <if test="reserved4 != null" >
+        Reserved4,
+      </if>
+      <if test="reserved5 != null" >
+        Reserved5,
+      </if>
+      <if test="reserved6 != null" >
+        Reserved6,
+      </if>
+      <if test="reserved7 != null" >
+        Reserved7,
+      </if>
+      <if test="reserved8 != null" >
+        Reserved8,
+      </if>
+      <if test="reserved9 != null" >
+        Reserved9,
+      </if>
+      <if test="reserved10 != null" >
+        Reserved10,
+      </if>
+      <if test="reserved11 != null" >
+        Reserved11,
+      </if>
+      <if test="reserved12 != null" >
+        Reserved12,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="createdate != null" >
+        CreateDate,
+      </if>
+      <if test="createuser != null" >
+        CreateUser,
+      </if>
+      <if test="updatedate != null" >
+        UpdateDate,
+      </if>
+      <if test="updateuser != null" >
+        UpdateUser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsdate != null" >
+        #{statisticsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="isdeleted != null" >
+        #{isdeleted,jdbcType=BIT},
+      </if>
+      <if test="reserved1 != null" >
+        #{reserved1,jdbcType=INTEGER},
+      </if>
+      <if test="reserved2 != null" >
+        #{reserved2,jdbcType=INTEGER},
+      </if>
+      <if test="reserved3 != null" >
+        #{reserved3,jdbcType=DECIMAL},
+      </if>
+      <if test="reserved4 != null" >
+        #{reserved4,jdbcType=DECIMAL},
+      </if>
+      <if test="reserved5 != null" >
+        #{reserved5,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserved6 != null" >
+        #{reserved6,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserved7 != null" >
+        #{reserved7,jdbcType=BIT},
+      </if>
+      <if test="reserved8 != null" >
+        #{reserved8,jdbcType=BIT},
+      </if>
+      <if test="reserved9 != null" >
+        #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        #{reserved10,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved11 != null" >
+        #{reserved11,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved12 != null" >
+        #{reserved12,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lst.model.UseWeight" >
+    update use_weight
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="statisticsdate != null" >
+        StatisticsDate = #{statisticsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weight != null" >
+        Weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="isdeleted != null" >
+        IsDeleted = #{isdeleted,jdbcType=BIT},
+      </if>
+      <if test="reserved1 != null" >
+        Reserved1 = #{reserved1,jdbcType=INTEGER},
+      </if>
+      <if test="reserved2 != null" >
+        Reserved2 = #{reserved2,jdbcType=INTEGER},
+      </if>
+      <if test="reserved3 != null" >
+        Reserved3 = #{reserved3,jdbcType=DECIMAL},
+      </if>
+      <if test="reserved4 != null" >
+        Reserved4 = #{reserved4,jdbcType=DECIMAL},
+      </if>
+      <if test="reserved5 != null" >
+        Reserved5 = #{reserved5,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserved6 != null" >
+        Reserved6 = #{reserved6,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserved7 != null" >
+        Reserved7 = #{reserved7,jdbcType=BIT},
+      </if>
+      <if test="reserved8 != null" >
+        Reserved8 = #{reserved8,jdbcType=BIT},
+      </if>
+      <if test="reserved9 != null" >
+        Reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        Reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved11 != null" >
+        Reserved11 = #{reserved11,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved12 != null" >
+        Reserved12 = #{reserved12,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuser != null" >
+        CreateUser = #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null" >
+        UpdateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        UpdateUser = #{updateuser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lst.model.UseWeight" >
+    update use_weight
+    set UserId = #{userid,jdbcType=INTEGER},
+      StatisticsDate = #{statisticsdate,jdbcType=TIMESTAMP},
+      Weight = #{weight,jdbcType=DECIMAL},
+      IsDeleted = #{isdeleted,jdbcType=BIT},
+      Reserved1 = #{reserved1,jdbcType=INTEGER},
+      Reserved2 = #{reserved2,jdbcType=INTEGER},
+      Reserved3 = #{reserved3,jdbcType=DECIMAL},
+      Reserved4 = #{reserved4,jdbcType=DECIMAL},
+      Reserved5 = #{reserved5,jdbcType=TIMESTAMP},
+      Reserved6 = #{reserved6,jdbcType=TIMESTAMP},
+      Reserved7 = #{reserved7,jdbcType=BIT},
+      Reserved8 = #{reserved8,jdbcType=BIT},
+      Reserved9 = #{reserved9,jdbcType=VARCHAR},
+      Reserved10 = #{reserved10,jdbcType=VARCHAR},
+      Reserved11 = #{reserved11,jdbcType=VARCHAR},
+      Reserved12 = #{reserved12,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      CreateUser = #{createuser,jdbcType=INTEGER},
+      UpdateDate = #{updatedate,jdbcType=TIMESTAMP},
+      UpdateUser = #{updateuser,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
