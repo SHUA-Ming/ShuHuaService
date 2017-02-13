@@ -42,8 +42,10 @@ public class CommCode {
 	public static final String M_A000011 = "体重为空";
 	public static final String M_AP00112 = "身高为空";
 	public static final String M_A000013 = "密码为空";
+	public static final String M_A000016 = "确认密码为空";
+	public static final String M_A000017 = "确认密码不正确！";
 	public static final String M_A000014 = "昵称已注册";
-	public static final String M_A000015 = "失败";
+	public static final String M_A000015 = "ERROR";
 
 	public static final String M_BP00106 = "手机号已注册!";
 	public static final String M_BP00107 = "图片为空！";
