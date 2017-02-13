@@ -49,6 +49,8 @@ public class CommCode {
 	// 登录
 	public static final String M_A000026 = "没有该用户";
 	public static final String M_A000027 = "密码错误";
+	public static final String M_A000028 = "登录成功";
+	
 
 	// 重置密码
 	public static final String M_B000001 = "重置密码失败";

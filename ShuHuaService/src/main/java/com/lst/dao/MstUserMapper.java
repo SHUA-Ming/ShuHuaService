@@ -35,7 +35,7 @@ public interface MstUserMapper {
 	
 	MstUser selectByWeiBoName(MstUser mstUser);
 	
-	List<MstUser> selectByMobileno(MstUser mstUser);
+	MstUser selectByMobileno(MstUser mstUser);
 
 	int updateResetPwd(MstUser mstuser);
 	

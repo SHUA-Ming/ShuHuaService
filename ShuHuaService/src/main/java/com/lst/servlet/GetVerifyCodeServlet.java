@@ -109,7 +109,7 @@ public class GetVerifyCodeServlet extends BaseServlet implements
 
 				user.setMobileno(mobileno);
 
-				List<MstUser> mstuser = mstUserMapper.selectByMobileno(user);
+				MstUser mstuser = mstUserMapper.selectByMobileno(user);
 
 				log.info("MstUser reslut  ： " + mstuser);
 
