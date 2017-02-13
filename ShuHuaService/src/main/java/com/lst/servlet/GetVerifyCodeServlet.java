@@ -95,96 +95,64 @@ public class GetVerifyCodeServlet extends BaseServlet implements
 			BaseResponse mstUserResPara = new BaseResponse();
 
 			// request
-			MstUserReqPara mstUserReqPara = getReqPara(req);
-
-			// nickname
-			String mobileno = mstUserReqPara.getMobileno();
-
-			if (StringUtils.isBlank(mobileno)) {
-
-				mstUserResPara.setCode(CommCode.M_ERROR);
-				mstUserResPara.setMessage(CommCode.M_BP00105);
-			} else {
-				MstUser user = new MstUser();
-
-				user.setMobileno(mobileno);
-
-				MstUser mstuser = mstUserMapper.selectByMobileno(user);
-
-				log.info("MstUser reslut  ： " + mstuser);
-
-				if (mstuser == null) {
+			String mobileNo = req.getParameter("mobileNo");
+			String sign = req.getParameter("sign");
+			
+			//根据mobileno查询是否有该用户
+			MstUser user = new MstUser();
+			user.setMobileno(mobileNo);
+			MstUser mstuser = mstUserMapper.selectByMobileno(user);
+			int key = 0;  //标识
+			
+			if(sign.equals(CommCode.M_AP00100)){  //如果是注册
+				if(mstuser != null){  //如果已经存在用户
+					mstUserResPara.setCode(CommCode.M_ERROR);
+					mstUserResPara.setMessage(CommCode.M_BP00106);
+				}else{  //发送验证码
+					key = 1;
+				}
+			}else if(sign.equals(CommCode.M_B000000)){  //如果是重置密码
+				if(mstuser ==null){  //用户不存在
 					mstUserResPara.setCode(CommCode.M_ERROR);
 					mstUserResPara.setMessage(CommCode.M_A000026);
-				} else {
-
-					// Make the veryfy code
-					String verifycode = String.valueOf(CommFun
-							.makeRandomWithRange(CommCode.MIN_NO,
-									CommCode.MAX_NO));
-
-					// TODO:Just the temp code which need to replace.
-					String content = "您的验证码是：" + verifycode + "。请不要把验证码泄露给其他人。";
-
-					boolean bclIsSend = CommFun.sendMessage("0000", mobileno,
-							content);
-
-					// Send sucessfuly
-					if (bclIsSend) {
-						mstUserResPara.setCode(CommCode.M_SUCCESSC);
-						mstUserResPara.setMessage(verifycode);
-					}
+				}else{
+					key = 1;
+				}
+			}
+			
+			//发送验证码
+			if(key == 1){
+				// Make the veryfy code
+				String verifycode = String.valueOf(CommFun.makeRandomWithRange(CommCode.MIN_NO,CommCode.MAX_NO));
+				String content = "您的验证码是：" + verifycode + "。请不要把验证码泄露给其他人。";
+				boolean bclIsSend = CommFun.sendMessage("0000", mobileNo,content);
+				if (bclIsSend) {
+					mstUserResPara.setCode(CommCode.M_SUCCESSC);
+					mstUserResPara.setMessage(verifycode);
+				}else{
+					mstUserResPara.setCode(CommCode.M_ERROR);
+					mstUserResPara.setMessage(CommCode.M_A000015);
 				}
 			}
 
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
-					.excludeFieldsWithoutExposeAnnotation().create();
-
+			//返回前端
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").excludeFieldsWithoutExposeAnnotation().create();
 			String jsonResult = gson.toJson(mstUserResPara);
-
 			resp.setContentType("application/json;charset=utf-8");
 			resp.setHeader("pragma", "no-cache");
 			resp.setHeader("cache-control", "no-cache");
-
 			PrintWriter out = resp.getWriter();
 			out.print(jsonResult);
 			out.flush();
 			out.close();
-
 			log.info(" GetVerifyCodeServlet result : " + jsonResult);
-
 		} catch (Exception e) {
 			log.error(" GetVerifyCodeServlet error : " + e.getMessage(), e);
 		}
 	}
 
-	/*
-	 * (非 Javadoc) <p>Title: getReqPara</p> <p>Description: </p>
-	 * 
-	 * @param request
-	 * 
-	 * @return
-	 * 
-	 * @see
-	 * com.lst.servlet.IBaseServlet#getReqPara(javax.servlet.http.HttpServletRequest
-	 * )
-	 */
 	@Override
 	public MstUserReqPara getReqPara(HttpServletRequest request) {
-		MstUserReqPara mstUserReqPara = null;
-
-		try {
-			BaseRequest baseRequest = RequestUtils.getRequestPara(request,
-					new MstUserReqPara());
-
-			mstUserReqPara = (MstUserReqPara) baseRequest.clone();
-
-			mstUserReqPara.setMobileno(request.getParameter("mobileno"));
-
-		} catch (Exception e) {
-			log.error(" MstUserReqPara error : " + e.getMessage(), e);
-		}
-
-		return mstUserReqPara;
+		return null;
 	}
 }

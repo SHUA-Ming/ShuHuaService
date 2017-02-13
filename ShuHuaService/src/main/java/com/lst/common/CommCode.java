@@ -32,6 +32,7 @@ public class CommCode {
 	public static final String M_A000008 = "操作类型非法";
 
 	// 注册
+	public static final String M_AP00100 = "register";
 	public static final String M_AP00101 = "邮箱地址为空";
 	public static final String M_AP00102 = "姓名为空";
 	public static final String M_BP00103 = "性别为空";
@@ -53,6 +54,8 @@ public class CommCode {
 	
 
 	// 重置密码
+	
+	public static final String M_B000000 = "resetPassword";
 	public static final String M_B000001 = "重置密码失败";
 	public static final String M_B000002 = "修改密码失败";
 	public static final String M_B000003 = "原始密码输入错误";
