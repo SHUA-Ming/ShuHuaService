@@ -28,8 +28,8 @@ import com.lst.model.MstUser;
 /**
  * @ClassName: LoginServlet
  * @Description:用户登录
- * @author Chen sy
- * @date 2015年4月7日 下午1:58:29
+ * @author mingming
+ * @date 2017年2月13日
  * 
  */
 public class LoginServlet extends BaseServlet implements

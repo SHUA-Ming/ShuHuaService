@@ -16,13 +16,35 @@
 
 	<!-- 注册 -->
 	<servlet>
-		<servlet-name>RegisterServlet</servlet-name>
+		<servlet-name>RegistrationServlet</servlet-name>
 		<servlet-class>com.lst.servlet.RegistrationServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>RegisterServlet</servlet-name>
+		<servlet-name>RegistrationServlet</servlet-name>
 		<url-pattern>/registrationServlet/register/json</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 完善资料 头像 -->
+	<servlet>
+		<servlet-name>PerfectInformationServlet</servlet-name>
+		<servlet-class>com.lst.servlet.PerfectInformationServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PerfectInformationServlet</servlet-name>
+		<url-pattern>/perfectInformationServlet/perfectInforma/json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 完善资料 身体状况 -->
+	<servlet>
+		<servlet-name>PerfectInPhysicalConditionServlet</servlet-name>
+		<servlet-class>com.lst.servlet.PerfectInPhysicalConditionServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PerfectInPhysicalConditionServlet</servlet-name>
+		<url-pattern>/perfectInPhysicalConditionServlet/perfectInPhysicalCondition/json</url-pattern>
 	</servlet-mapping>
 
 	<!-- 登录 -->
@@ -173,7 +195,7 @@
 
 	<servlet-mapping>
 		<servlet-name>UploadFileServlet</servlet-name>
-		<url-pattern>/uploadfile</url-pattern>
+		<url-pattern>/uploadfile/json</url-pattern>
 	</servlet-mapping>
 
 	<!-- change icon -->

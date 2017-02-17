@@ -37,7 +37,7 @@ import com.lst.utils.RequestUtils;
  * @ClassName: ForgetPwdServlet
  * @Description: 忘记密码
  * @author aluo
- * @date 2015年4月7日 下午1:58:29
+ * @date 2017年2月17日
  * 
  */
 
@@ -49,21 +49,7 @@ public class ForgetPwdServlet extends BaseServlet implements
 	private static MstUserMapper mstUserMapper = ctx
 			.getBean(MstUserMapper.class);
 
-	/*
-	 * (非 Javadoc) <p>Title: doGet</p> <p>Description: </p>
-	 * 
-	 * @param req
-	 * 
-	 * @param resp
-	 * 
-	 * @throws ServletException
-	 * 
-	 * @throws IOException
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
-	 */
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -71,72 +57,61 @@ public class ForgetPwdServlet extends BaseServlet implements
 		this.doPost(req, resp);
 	}
 
-	/*
-	 * (非 Javadoc) <p>Title: doPost</p> <p>Description: </p>
-	 * 
-	 * @param req
-	 * 
-	 * @param resp
-	 * 
-	 * @throws ServletException
-	 * 
-	 * @throws IOException
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
-	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			// response
+			
 			MstUserResPara mstUserResPara = new MstUserResPara();
-
-			// request
-			MstUserReqPara mstUserReqPara = getReqPara(req);
-
-			// nickname
-			String mobileno = mstUserReqPara.getMobileno();
-
-			// newpwd
-			String newpwd = mstUserReqPara.getNewpwd();
-
-			if (StringUtils.isBlank(mobileno)) {
+			MstUser user = new MstUser();
+			
+			String mobileNo = req.getParameter("mobileNo");
+			String oldPassWord = req.getParameter("oldPassWord");
+			String newPassWord = req.getParameter("newPassWord");  //新密码
+			String confirmPassWord = req.getParameter("confirmPassWord");
+			
+			//判断
+			if(StringUtils.isBlank(mobileNo)){
 				mstUserResPara.setCode(CommCode.M_ERROR);
 				mstUserResPara.setMessage(CommCode.M_BP00105);
-			} else if (StringUtils.isBlank(newpwd)) {
+			}else if(StringUtils.isBlank(oldPassWord)){
 				mstUserResPara.setCode(CommCode.M_ERROR);
 				mstUserResPara.setMessage(CommCode.M_A000013);
-			} else {
-				MstUser user = new MstUser();
-
-				user.setMobileno(mobileno);
-
-				List<MstUser> mstuser = mstUserMapper.selectByMobileno(user);
-
-				log.info("MstUser reslut  ： " + mstuser);
-
-				if (mstuser == null) {
-
+			}else if(StringUtils.isBlank(confirmPassWord)){
+				mstUserResPara.setCode(CommCode.M_ERROR);
+				mstUserResPara.setMessage(CommCode.M_A000016);
+			}else if(!newPassWord.equals(confirmPassWord)){
+				mstUserResPara.setCode(CommCode.M_ERROR);
+				mstUserResPara.setMessage(CommCode.M_A000017);
+			}else{
+				MstUser mstUser = new MstUser();
+				mstUser.setMobileno(mobileNo);
+				mstUser = mstUserMapper.selectByMobileno(mstUser);
+				
+				if(mstUser == null){
 					mstUserResPara.setCode(CommCode.M_ERROR);
 					mstUserResPara.setMessage(CommCode.M_A000026);
-
-				} else {
-
-					user.setPassword(newpwd);
-
-					int count = mstUserMapper.forgetPwd(user);
-
-					if (count > 0) {
-						mstUserResPara.setCode(CommCode.M_SUCCESSC);
-						mstUserResPara.setMessage(CommCode.M_Y000001);
-					} else {
+				}else{
+					String passWordOld = mstUser.getPassword();
+					if(passWordOld.equals(oldPassWord)){
+						mstUser.setPassword(mobileNo);
+						mstUser.setPassword(newPassWord);
+						int con = mstUserMapper.updateResetPwd(mstUser);
+						if(con == 1){
+							mstUserResPara.setCode(CommCode.M_SUCCESSC);
+							mstUserResPara.setMessage(CommCode.M_Y000001);
+						}else{
+							mstUserResPara.setCode(CommCode.M_ERROR);
+							mstUserResPara.setMessage(CommCode.M_A000015);
+						}
+					}else{
 						mstUserResPara.setCode(CommCode.M_ERROR);
-						mstUserResPara.setMessage(CommCode.M_B000002);
+						mstUserResPara.setMessage(CommCode.M_B000003);
 					}
+					
 				}
 			}
+			
 
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 					.excludeFieldsWithoutExposeAnnotation().create();

@@ -23,7 +23,7 @@ public class MstUser implements Serializable {
 
 	private String name;
 	@Expose
-	private Boolean gender;
+	private Boolean gender;  // 0：女-->false；1：男-->true
 	@Expose
 	private String mobileno;
 	@Expose
