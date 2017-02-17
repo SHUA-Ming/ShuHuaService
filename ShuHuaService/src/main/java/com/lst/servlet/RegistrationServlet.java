@@ -41,8 +41,8 @@ import com.lst.utils.RequestUtils;
 /**
  * @ClassName: RegistrationServlet
  * @Description:用户注册
- * @author Chen sy
- * @date 2015年4月7日 下午1:58:29
+ * @author mingming
+ * @date 2017年2月13日 下午1:58:29
  * 
  */
 
@@ -101,7 +101,7 @@ public class RegistrationServlet extends BaseServlet implements
 			String mobileNo = req.getParameter("mobileNo");
 			String passWord = req.getParameter("passWord");
 			String confirmPassWord = req.getParameter("confirmPassWord");
-			System.out.println(passWord+"-----"+confirmPassWord);
+			
 			//判断
 			if(StringUtils.isBlank(mobileNo)){
 				mstUserResPara.setCode(CommCode.M_ERROR);

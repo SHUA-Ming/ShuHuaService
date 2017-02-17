@@ -43,24 +43,8 @@ import com.lst.entity.request.MstUserReqPara;
 @SuppressWarnings("deprecation")
 public class UploadFileServlet extends BaseServlet implements
 		IBaseServlet<MstUserReqPara> {
-
 	private static final long serialVersionUID = 1L;
-
-	/*
-	 * (非 Javadoc) <p>Title: doGet</p> <p>Description: </p>
-	 * 
-	 * @param req
-	 * 
-	 * @param resp
-	 * 
-	 * @throws ServletException
-	 * 
-	 * @throws IOException
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
-	 */
+	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -87,30 +71,21 @@ public class UploadFileServlet extends BaseServlet implements
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String temp = request.getSession().getServletContext().getRealPath("/")
-				+ "temp"; // 临时目录
-
-		String loadpath = request.getSession().getServletContext()
-				.getRealPath("/")
-				+ "Image"; // 上传文件存放目录
-
+		String temp = request.getSession().getServletContext().getRealPath("/") + "temp";  //临时目录
+		String loadpath = request.getSession().getServletContext().getRealPath("/") + "Image";  //上传文件存放目录
+		System.out.println("临时路径："+temp+"上传路径："+loadpath);
 		// loadpath="g:\ftp_file";
-
+		
 		BaseResponse res = new BaseResponse();
-
-		res.setCode(CommCode.M_SUCCESSC);
-		res.setMessage(CommCode.M_Y000001);
 
 		File tempdir = new File(temp);
 		if (!tempdir.exists()) {
-			tempdir.mkdir();
+			tempdir.mkdir();  //创建文件夹
 		}
-
 		File loadpathdir = new File(loadpath);
 		if (!loadpathdir.exists()) {
 			loadpathdir.mkdir();
 		}
-
 		System.out.println("loadpath=" + loadpath);
 		DiskFileUpload fu = new DiskFileUpload();
 		fu.setSizeMax(1 * 1024 * 1024);
@@ -122,51 +97,49 @@ public class UploadFileServlet extends BaseServlet implements
 		List fileItems = null;
 
 		try {
-
 			fileItems = fu.parseRequest(request);
-			System.out.println("fileItems=" + fileItems);
+			System.out.println("fileItems：上传文件lisM_Y000000t=" + fileItems);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		String msg = "error";
-
-		Iterator iter = fileItems.iterator(); // 依次处理每个上传的文件
-		try {
-
-			while (iter.hasNext()) {
-				FileItem item = (FileItem) iter.next();// 忽略其他不是文件域的所有表单信息
-				if (!item.isFormField()) {
-					String name = item.getName();// 获取上传文件名,包括路径
-					name = name.substring(name.lastIndexOf("\\") + 1);// 从全路径中提取文件名
-					long size = item.getSize();
-					if ((name == null || name.equals("")) && size == 0)
-						continue;
-
-					name = (new Date()).getTime() + ".jpg";
-					index++;
-					File fNew = new File(loadpath, name);
-					item.write(fNew);
-					msg = name;
-
-					res.setMessage(name);
-
+		if(fileItems != null){
+			String msg = "error";
+			Iterator iter = fileItems.iterator();  //依次处理每个上传的文件
+			try {
+				while (iter.hasNext()) {
+					FileItem item = (FileItem) iter.next();  //忽略其他不是文件域的所有表单信息
+					if (!item.isFormField()) {
+						String name = item.getName();  //获取上传文件名,包括路径
+						name = name.substring(name.lastIndexOf("\\") + 1);  //从全路径中提取文件名
+						long size = item.getSize();
+						if ((name == null || name.equals("")) && size == 0)
+							continue;
+	
+						name = (new Date()).getTime() + ".jpg";
+						index++;
+						File fNew = new File(loadpath, name);
+						item.write(fNew);
+						msg = name;
+						res.setMessage(name);
+					}
 				}
+				res.setCode(CommCode.M_SUCCESSC);
+			} catch (Exception e) {
+				res.setCode(CommCode.M_ERROR);
+				res.setMessage(e.getMessage());
 			}
-		} catch (Exception e) {
-			// msg="error";
-
+			// response.getWriter().write(msg);
+			
+		}else{
 			res.setCode(CommCode.M_ERROR);
-			res.setMessage(e.getMessage());
+			res.setMessage(CommCode.M_A000015);
 		}
-
-		// response.getWriter().write(msg);
-
+		
+		//返回页面
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 				.excludeFieldsWithoutExposeAnnotation().create();
-
 		String jsonResult = gson.toJson(res);
-
 		response.setContentType("application/json;charset=utf-8");
 		response.setHeader("pragma", "no-cache");
 		response.setHeader("cache-control", "no-cache");
@@ -175,20 +148,8 @@ public class UploadFileServlet extends BaseServlet implements
 		out.print(jsonResult);
 		out.flush();
 		out.close();
-
 	}
 
-	/*
-	 * (非 Javadoc) <p>Title: getReqPara</p> <p>Description: </p>
-	 * 
-	 * @param request
-	 * 
-	 * @return
-	 * 
-	 * @see
-	 * com.lst.servlet.IBaseServlet#getReqPara(javax.servlet.http.HttpServletRequest
-	 * )
-	 */
 	@Override
 	public MstUserReqPara getReqPara(HttpServletRequest request) {
 		// TODO Auto-generated method stub
