@@ -84,11 +84,22 @@
 		<servlet-name>EditPwdServlet</servlet-name>
 		<servlet-class>com.lst.servlet.EditPwdServlet</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>EditPwdServlet</servlet-name>
 		<url-pattern>/editPwdServlet/editPwd/json</url-pattern>
 	</servlet-mapping>
+	<!-- 保存室内外运动数据 -->
+	<servlet>
+		<servlet-name>MotionRecordServlet</servlet-name>
+		<servlet-class>com.lst.servlet.MotionRecordServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MotionRecordServlet</servlet-name>
+		<url-pattern>/motionRecordServlet/motionRecord/json</url-pattern>
+	</servlet-mapping>
+
+
+
 
 	<!-- 设备信息 -->
 	<servlet>

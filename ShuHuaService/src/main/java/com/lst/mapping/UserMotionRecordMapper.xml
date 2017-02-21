@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lst.dao.UserMotionRecordMapper">
+	<resultMap id="BaseResultMap" type="com.lst.model.UserMotionRecord">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="machineId" property="machineId" jdbcType="INTEGER" />
+		<result column="userPlanId" property="userPlanId" jdbcType="INTEGER" />
+		<result column="startDate" property="startDate" jdbcType="BIGINT" />
+		<result column="endDate" property="endDate" jdbcType="BIGINT" />
+		<result column="longTime" property="longTime" jdbcType="INTEGER" />
+		<result column="calorie" property="calorie" jdbcType="FLOAT" />
+		<result column="kilometer" property="kilometer" jdbcType="FLOAT" />
+		<result column="step" property="step" jdbcType="INTEGER" />
+		<result column="heartRate" property="heartRate" jdbcType="INTEGER" />
+		<result column="pace" property="pace" jdbcType="FLOAT" />
+		<result column="averageVelocity" property="averageVelocity" jdbcType="FLOAT" />
+		<result column="averageSpeed" property="averageSpeed" jdbcType="INTEGER" />
+		<result column="averageStride" property="averageStride" jdbcType="INTEGER" />
+		<result column="averageGrade" property="averageGrade" jdbcType="FLOAT" />
+		<result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="mark" property="mark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,userId,machineId,userPlanId,startDate,endDate,longTime,calorie,kilometer,
+		step,heartRate,pace,averageVelocity,averageSpeed,averageStride,averageGrade,createDate,mark
+	</sql>
+	<select id="selectById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_motionRecord
+		where Id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- <insert id="insert" parameterType="com.lst.model.UserMotionRecord">
+		insert into user_motionRecord 
+		(<include refid="Base_Column_List" />)
+		values (
+		#{id,jdbcType=INTEGER},
+		#{machineId,jdbcType=INTEGER},
+		#{userId,jdbcType=INTEGER},
+		#{userPlanId,jdbcType=INTEGER},
+		#{startDate,jdbcType=BIGINT},
+		#{endDate,jdbcType=BIGINT},
+		#{longTime,jdbcType=INTEGER},
+		#{calorie,jdbcType=FLOAT},
+		#{kilometer,jdbcType=FLOAT},
+		#{step,jdbcType=INTEGER},
+		#{heartRate,jdbcType=INTEGER},
+		#{pace,jdbcType=FLOAT},
+		#{averageVelocity,jdbcType=FLOAT},
+		#{averageSpeed,jdbcType=INTEGER},
+		#{averageStride,jdbcType=INTEGER},
+		#{averageGrade,jdbcType=FLOAT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{mark,jdbcType=VARCHAR}
+		)
+	</insert> -->
+	<!-- <insert id="insertSelective" parameterType="com.lst.model.UserMotionRecord">
+	insert into user_motionRecord (userId) VALUES (1)
+	</insert> -->
+	<insert id="insertSelective" parameterType="com.lst.model.UserMotionRecord">
+		insert into user_motionRecord
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				userId,
+			</if>
+			<if test="machineId != null">
+				machineId,
+			</if>
+			<if test="userPlanId != null">
+				userPlanId,
+			</if>
+			<if test="startDate != null">
+				startDate,
+			</if>
+			<if test="endDate != null">
+				endDate,
+			</if>
+			<if test="longTime != null">
+				longTime,
+			</if>
+			<if test="calorie != null">
+				calorie,
+			</if>
+			<if test="kilometer != null">
+				kilometer,
+			</if>
+			<if test="step != null">
+				step,
+			</if>
+			<if test="heartRate != null">
+				heartRate,
+			</if>
+			<if test="pace != null">
+				pace,
+			</if>
+			<if test="averageVelocity != null">
+				averageVelocity,
+			</if>
+			<if test="averageSpeed != null">
+				averageSpeed,
+			</if>
+			<if test="averageStride != null">
+				averageStride,
+			</if>
+			<if test="averageGrade != null">
+				averageGrade,
+			</if>
+			<if test="createDate != null">
+				createDate,
+			</if>
+			<if test="mark != null">
+				mark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="machineId != null">
+				#{machineId,jdbcType=INTEGER},
+			</if>
+			<if test="userPlanId != null">
+				#{userPlanId,jdbcType=INTEGER},
+			</if>
+			<if test="startDate != null">
+				#{startDate,jdbcType=BIGINT},
+			</if>
+			<if test="endDate != null">
+				#{endDate,jdbcType=BIGINT},
+			</if>
+			<if test="longTime != null">
+				#{longTime,jdbcType=INTEGER},
+			</if>
+			<if test="calorie != null">
+				#{calorie,jdbcType=FLOAT},
+			</if>
+			<if test="kilometer != null">
+				#{kilometer,jdbcType=FLOAT},
+			</if>
+			<if test="step != null">
+				#{step,jdbcType=INTEGER},
+			</if>
+			<if test="heartRate != null">
+				#{heartRate,jdbcType=INTEGER},
+			</if>
+			<if test="pace != null">
+				#{pace,jdbcType=FLOAT},
+			</if>
+			<if test="averageVelocity != null">
+				#{averageVelocity,jdbcType=FLOAT},
+			</if>
+			<if test="averageSpeed != null">
+				#{averageSpeed,jdbcType=INTEGER},
+			</if>
+			<if test="averageStride != null">
+				#{averageStride,jdbcType=INTEGER},
+			</if>
+			<if test="averageGrade != null">
+				#{averageGrade,jdbcType=FLOAT},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mark != null">
+				#{mark,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+
+	<select id="selectByUserid" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_motionRecord where UserId = #{userid,jdbcType=INTEGER} order by createDate desc
+	</select>
+</mapper>

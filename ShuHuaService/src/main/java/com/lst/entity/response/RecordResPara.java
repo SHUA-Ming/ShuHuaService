@@ -31,7 +31,7 @@ public class RecordResPara extends BaseResponse {
 	private static final long serialVersionUID = 1L;
 	@Expose
 	private List<UserReocrd> userRecordList;
-
+	
 	/**
 	 * @return the userRecordList
 	 */

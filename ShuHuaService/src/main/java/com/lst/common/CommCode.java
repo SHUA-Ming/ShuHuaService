@@ -69,10 +69,27 @@ public class CommCode {
 	// 健身信息
 	public static final String M_BP00301 = "用户id为空";
 	public static final String M_BP00302 = "设备为空";
+	public static final String M_BP00315 = "心率为空";
+	public static final String M_BP00316 = "平均坡度为空";
+	public static final String M_BP00317 = "平均配速为空";
+	public static final String M_BP00320 = "平均速度为空";
+	public static final String M_BP00321 = "平均步幅为空";
+	public static final String M_BP00322 = "室内外标识为空";
+	
+	
+	
 	public static final String M_BP00303 = "开始时间为空";
 	public static final String M_BP00304 = "结束时间为空";
+	public static final String M_BP00318 = "时长为空";
+	
 	public static final String M_BP00305 = "消耗卡路里为空";
 	public static final String M_BP00306 = "距离为空";
+	public static final String M_BP00313 = "时速为空";
+	public static final String M_BP00314 = "步数为空";
+	public static final String M_BP00319 = "步频为空";
+	
+	
+	
 	public static final String M_BP00307 = "没有健身记录";
 	public static final String M_BP00308 = "当前页为空";
 	public static final String M_BP00309 = "每页条数为空";
