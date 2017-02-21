@@ -38,8 +38,8 @@ import com.lst.utils.RequestUtils;
 /**
  * @ClassName: EditPwdServlet
  * @Description: 修改密码
- * @author Chen sy
- * @date 2015年4月7日 下午1:58:29
+ * @author mingming
+ * @date 2017年2月27日
  * 
  */
 public class EditPwdServlet extends BaseServlet implements
@@ -50,168 +50,81 @@ public class EditPwdServlet extends BaseServlet implements
 	private static MstUserMapper mstUserMapper = ctx
 			.getBean(MstUserMapper.class);
 
-	/*
-	 * (非 Javadoc) <p>Title: doGet</p> <p>Description: </p>
-	 * 
-	 * @param req
-	 * 
-	 * @param resp
-	 * 
-	 * @throws ServletException
-	 * 
-	 * @throws IOException
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
-	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		this.doPost(req, resp);
 	}
 
-	/*
-	 * (非 Javadoc) <p>Title: doPost</p> <p>Description: </p>
-	 * 
-	 * @param req
-	 * 
-	 * @param resp
-	 * 
-	 * @throws ServletException
-	 * 
-	 * @throws IOException
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
-	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		try {
-			Date startDate = new Date();
-
-			// response
 			MstUserResPara mstUserResPara = new MstUserResPara();
+			
+			String mobileNo = req.getParameter("mobileNo");
+			String oldPassWord = req.getParameter("oldPassWord");
+			String newPassWord = req.getParameter("newPassWord");  //新密码
+			String confirmPassWord = req.getParameter("confirmPassWord");
 
-			// request
-			// Get the VerifyCode request parameter
-			MstUserReqPara mstUserReqPara = getReqPara(req);
-
-			// nickname
-			String nickname = mstUserReqPara.getNickname();
-			// password
-			String password = mstUserReqPara.getPassword();
-			// newpwd
-			String newpwd = mstUserReqPara.getNewpwd();
-
-			if (StringUtils.isBlank(nickname)) {
+			if (StringUtils.isBlank(mobileNo)) {
 				mstUserResPara.setCode(CommCode.M_ERROR);
-				mstUserResPara.setMessage(CommCode.M_BP00104);
-			} else if (StringUtils.isBlank(password)) {
+				mstUserResPara.setMessage(CommCode.M_BP00105);
+			} else if (StringUtils.isBlank(oldPassWord)) {
+				mstUserResPara.setCode(CommCode.M_ERROR);
+				mstUserResPara.setMessage(CommCode.M_B000004);
+			} else if (StringUtils.isBlank(newPassWord)) {
 				mstUserResPara.setCode(CommCode.M_ERROR);
 				mstUserResPara.setMessage(CommCode.M_A000013);
-			} else if (StringUtils.isBlank(newpwd)) {
+			} else if (StringUtils.isBlank(confirmPassWord)) {
 				mstUserResPara.setCode(CommCode.M_ERROR);
-				mstUserResPara.setMessage(CommCode.M_A000013);
-			} else {
-
-				MstUser user = new MstUser();
-
-				user.setNickname(nickname);
-
-				MstUser mstuser = mstUserMapper.selectByNikename(user);
-
-				log.info("MstUser reslut  ： " + mstuser);
-
-				if (mstuser == null) {
+				mstUserResPara.setMessage(CommCode.M_A000016);
+			} else if(!newPassWord.equals(confirmPassWord)){
+				mstUserResPara.setCode(CommCode.M_ERROR);
+				mstUserResPara.setMessage(CommCode.M_A000017);
+			}else {
+				MstUser mstUser = new MstUser();
+				mstUser.setMobileno(mobileNo);
+				mstUser = mstUserMapper.selectByMobileno(mstUser);
+				
+				if(mstUser == null){
 					mstUserResPara.setCode(CommCode.M_ERROR);
 					mstUserResPara.setMessage(CommCode.M_A000026);
-				} else {
-					if (mstuser.getPassword().equals(password)) {
-
-						mstuser.setPassword(newpwd);
-						mstuser.setUpdatedate(new Date());
-
-						log.info("MstUser update begin time: " + startDate);
-
-						int count = mstUserMapper.updateResetPwd(mstuser);
-
-						log.info("MstUser update end time: "
-								+ DateUtil.calLastedTime(startDate));
-
-						if (count > 0) {
+				}else{
+					String passWordOld = mstUser.getPassword();
+					if(passWordOld.equals(oldPassWord)){
+						mstUser.setPassword(mobileNo);
+						mstUser.setPassword(newPassWord);
+						int con = mstUserMapper.updateResetPwd(mstUser);
+						if(con == 1){
 							mstUserResPara.setCode(CommCode.M_SUCCESSC);
 							mstUserResPara.setMessage(CommCode.M_Y000001);
-							mstUserResPara.setMstuser(mstuser);
-						} else {
+						}else{
 							mstUserResPara.setCode(CommCode.M_ERROR);
-							mstUserResPara.setMessage(CommCode.M_B000002);
+							mstUserResPara.setMessage(CommCode.M_A000015);
 						}
-					} else {
+					}else{
 						mstUserResPara.setCode(CommCode.M_ERROR);
 						mstUserResPara.setMessage(CommCode.M_B000003);
 					}
 				}
 			}
 
+			//返回数据
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 					.excludeFieldsWithoutExposeAnnotation().create();
-
 			String jsonResult = gson.toJson(mstUserResPara);
-
 			resp.setContentType("application/json;charset=utf-8");
 			// resp.setContentType("text/plain;charset=UTF-8");
 			resp.setHeader("pragma", "no-cache");
 			resp.setHeader("cache-control", "no-cache");
-
 			PrintWriter out = resp.getWriter();
 			out.print(jsonResult);
 			out.flush();
 			out.close();
-
-			log.info(" ResetPwdServlet result : " + jsonResult);
-
-		} catch (Exception e) {
-			log.error(" ResetPwdServlet error : " + e.getMessage(), e);
-		}
 	}
 
-	/*
-	 * (非 Javadoc) <p>Title: getReqPara</p> <p>Description: </p>
-	 * 
-	 * @param request
-	 * 
-	 * @return
-	 * 
-	 * @see
-	 * com.lst.servlet.IBaseServlet#getReqPara(javax.servlet.http.HttpServletRequest
-	 * )
-	 */
 	@Override
 	public MstUserReqPara getReqPara(HttpServletRequest request) {
-		MstUserReqPara mstUserReqPara = null;
-
-		try {
-			BaseRequest baseRequest = RequestUtils.getRequestPara(request,
-					new MstUserReqPara());
-
-			mstUserReqPara = (MstUserReqPara) baseRequest.clone();
-
-			mstUserReqPara.setNickname(CommFun.Filter(request.getParameter("nickname")));
-			mstUserReqPara.setNewpwd(request.getParameter("newpwd"));
-			mstUserReqPara.setPassword(request.getParameter("password"));
-
-			log.info(" getMstUserReqPara para nickname:"
-					+ CommFun.Filter(request.getParameter("nickname")) + " newpwd:"
-					+ request.getParameter("newpwd") + " password:"
-					+ request.getParameter("password"));
-
-		} catch (Exception e) {
-			log.error(" getMstUserReqPara error : " + e.getMessage(), e);
-		}
-
-		return mstUserReqPara;
+		return null;
 	}
 }

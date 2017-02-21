@@ -61,6 +61,7 @@ public class CommCode {
 	public static final String M_B000001 = "重置密码失败";
 	public static final String M_B000002 = "修改密码失败";
 	public static final String M_B000003 = "原始密码输入错误";
+	public static final String M_B000004 = "原始密码为空";
 
 	// 设备信息
 	public static final String M_BP00201 = "设备型号为空";

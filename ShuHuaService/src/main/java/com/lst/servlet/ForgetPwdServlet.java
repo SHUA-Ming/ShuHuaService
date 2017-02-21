@@ -63,10 +63,8 @@ public class ForgetPwdServlet extends BaseServlet implements
 		try {
 			
 			MstUserResPara mstUserResPara = new MstUserResPara();
-			MstUser user = new MstUser();
 			
 			String mobileNo = req.getParameter("mobileNo");
-			//String oldPassWord = req.getParameter("oldPassWord");
 			String newPassWord = req.getParameter("newPassWord");  //新密码
 			String confirmPassWord = req.getParameter("confirmPassWord");
 			
@@ -74,10 +72,7 @@ public class ForgetPwdServlet extends BaseServlet implements
 			if(StringUtils.isBlank(mobileNo)){
 				mstUserResPara.setCode(CommCode.M_ERROR);
 				mstUserResPara.setMessage(CommCode.M_BP00105);
-			}/*else if(StringUtils.isBlank(oldPassWord)){
-				mstUserResPara.setCode(CommCode.M_ERROR);
-				mstUserResPara.setMessage(CommCode.M_A000013);
-			}*/else if(StringUtils.isBlank(confirmPassWord)){
+			}else if(StringUtils.isBlank(confirmPassWord)){
 				mstUserResPara.setCode(CommCode.M_ERROR);
 				mstUserResPara.setMessage(CommCode.M_A000016);
 			}else if(!newPassWord.equals(confirmPassWord)){
@@ -92,23 +87,16 @@ public class ForgetPwdServlet extends BaseServlet implements
 					mstUserResPara.setCode(CommCode.M_ERROR);
 					mstUserResPara.setMessage(CommCode.M_A000026);
 				}else{
-					//String passWordOld = mstUser.getPassword();
-					//if(passWordOld.equals(oldPassWord)){
-						mstUser.setPassword(mobileNo);
-						mstUser.setPassword(newPassWord);
-						int con = mstUserMapper.updateResetPwd(mstUser);
-						if(con == 1){
-							mstUserResPara.setCode(CommCode.M_SUCCESSC);
-							mstUserResPara.setMessage(CommCode.M_Y000001);
-						}else{
-							mstUserResPara.setCode(CommCode.M_ERROR);
-							mstUserResPara.setMessage(CommCode.M_A000015);
-						}
-					/*}else{
+					mstUser.setPassword(mobileNo);
+					mstUser.setPassword(newPassWord);
+					int con = mstUserMapper.updateResetPwd(mstUser);
+					if(con == 1){
+						mstUserResPara.setCode(CommCode.M_SUCCESSC);
+						mstUserResPara.setMessage(CommCode.M_Y000001);
+					}else{
 						mstUserResPara.setCode(CommCode.M_ERROR);
-						mstUserResPara.setMessage(CommCode.M_B000003);
-					}*/
-					
+						mstUserResPara.setMessage(CommCode.M_A000015);
+					}
 				}
 			}
 			
