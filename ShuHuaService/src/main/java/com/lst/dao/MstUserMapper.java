@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.lst.model.LoginBody;
 import com.lst.model.MstUser;
 
 public interface MstUserMapper {
@@ -46,4 +47,6 @@ public interface MstUserMapper {
 	List<MstUser> selectTop10();
 	
 	List<MstUser> selectUser();
+	
+	LoginBody returnRegist(String mobileNo);
 }

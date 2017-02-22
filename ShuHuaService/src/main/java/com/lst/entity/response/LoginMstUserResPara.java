@@ -25,25 +25,15 @@ import com.lst.model.MstUser;
  * @date 2015年4月7日 下午2:19:31
  * 
  */
-public class MstUserResPara extends BaseResponse {
+public class LoginMstUserResPara extends BaseResponse {
 
 	private static final long serialVersionUID = 1L;
 	@Expose
-	private MstUser mstuser;
-
-	/**
-	 * @return the mstuser
-	 */
-	public MstUser getMstuser() {
-		return mstuser;
+	private LoginBody loginBody;
+	public LoginBody getLoginBody() {
+		return loginBody;
 	}
-
-	/**
-	 * @param mstuser
-	 *            the mstuser to set
-	 */
-	public void setMstuser(MstUser mstuser) {
-		this.mstuser = mstuser;
+	public void setLoginBody(LoginBody loginBody) {
+		this.loginBody = loginBody;
 	}
-
 }

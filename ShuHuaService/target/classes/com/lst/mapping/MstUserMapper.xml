@@ -12,7 +12,8 @@
 		<result column="MobileNo" property="mobileno" jdbcType="VARCHAR" />
 		<result column="Weight" property="weight" jdbcType="DECIMAL" />
 		<result column="Height" property="height" jdbcType="INTEGER" />
-		<result column="Birthday" property="birthday" jdbcType="TIMESTAMP" />
+		<result column="Sex" property="sex" jdbcType="VARCHAR" />
+		<result column="Birthday" property="birthday" jdbcType="VARCHAR" />
 		<result column="Email" property="email" jdbcType="VARCHAR" />
 		<result column="Portrait" property="portrait" jdbcType="VARCHAR" />
 		<result column="Qq" property="qq" jdbcType="VARCHAR" />
@@ -51,7 +52,7 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		Id, Account, Password, Type, NickName, Name, Gender,
-		MobileNo, Weight,
+		MobileNo, Weight,Sex,
 		Height, Birthday,
 		Email, Portrait, Qq, QqPwd, WeiXin,
 		WeiXinPwd, WeiBo, WeiBoPwd, TotalNumber,
@@ -120,7 +121,7 @@
 		insert into mst_user (Id, Account,
 		Password,
 		Type, NickName, Name,
-		Gender, MobileNo, Weight,
+		Gender, MobileNo, Weight,Sex,
 		Height,
 		Birthday, Email,
 		Portrait, Qq, QqPwd,
@@ -144,9 +145,10 @@
 		#{type,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR},
 		#{gender,jdbcType=BIT},
+		#{sex,jdbcType=VARCHAR},
 		#{mobileno,jdbcType=VARCHAR},
 		#{weight,jdbcType=DECIMAL},
-		#{height,jdbcType=INTEGER}, #{birthday,jdbcType=TIMESTAMP},
+		#{height,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR},
 		#{portrait,jdbcType=VARCHAR},
 		#{qq,jdbcType=VARCHAR},
@@ -199,6 +201,9 @@
 			</if>
 			<if test="gender != null">
 				Gender,
+			</if>
+			<if test="sex != null">
+				Sex,
 			</if>
 			<if test="mobileno != null">
 				MobileNo,
@@ -334,6 +339,9 @@
 			<if test="gender != null">
 				#{gender,jdbcType=BIT},
 			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
 			<if test="mobileno != null">
 				#{mobileno,jdbcType=VARCHAR},
 			</if>
@@ -344,7 +352,7 @@
 				#{height,jdbcType=INTEGER},
 			</if>
 			<if test="birthday != null">
-				#{birthday,jdbcType=TIMESTAMP},
+				#{birthday,jdbcType=VARCHAR},
 			</if>
 			<if test="email != null">
 				#{email,jdbcType=VARCHAR},
@@ -468,6 +476,9 @@
 			<if test="gender != null">
 				Gender = #{gender,jdbcType=BIT},
 			</if>
+			<if test="sex != null">
+				Sex = #{sex,jdbcType=VARCHAR},
+			</if>
 			<if test="mobileno != null">
 				MobileNo = #{mobileno,jdbcType=VARCHAR},
 			</if>
@@ -478,7 +489,7 @@
 				Height = #{height,jdbcType=INTEGER},
 			</if>
 			<if test="birthday != null">
-				Birthday = #{birthday,jdbcType=TIMESTAMP},
+				Birthday = #{birthday,jdbcType=VARCHAR},
 			</if>
 			<if test="email != null">
 				Email = #{email,jdbcType=VARCHAR},
@@ -585,47 +596,34 @@
 	<update id="updateByPrimaryKey" parameterType="com.lst.model.MstUser">
 		update mst_user
 		set Account = #{account,jdbcType=VARCHAR},
-		Password =
-		#{password,jdbcType=VARCHAR},
+		Password = #{password,jdbcType=VARCHAR},
 		Type = #{type,jdbcType=INTEGER},
-		NickName
-		= #{nickname,jdbcType=VARCHAR},
+		NickName = #{nickname,jdbcType=VARCHAR},
 		Name = #{name,jdbcType=VARCHAR},
-		Gender
-		= #{gender,jdbcType=BIT},
+		Gender = #{gender,jdbcType=BIT},
 		MobileNo = #{mobileno,jdbcType=VARCHAR},
 		Weight = #{weight,jdbcType=DECIMAL},
-		Height =
-		#{height,jdbcType=INTEGER},
-		Birthday = #{birthday,jdbcType=TIMESTAMP},
+		Height = #{height,jdbcType=INTEGER},
+		Sex = #{sex,jdbcType=VARCHAR},
+		Birthday = #{birthday,jdbcType=VARCHAR},
 		Email = #{email,jdbcType=VARCHAR},
-		Portrait =
-		#{portrait,jdbcType=VARCHAR},
+		Portrait = #{portrait,jdbcType=VARCHAR},
 		Qq = #{qq,jdbcType=VARCHAR},
-		QqPwd =
-		#{qqpwd,jdbcType=VARCHAR},
+		QqPwd = #{qqpwd,jdbcType=VARCHAR},
 		WeiXin = #{weixin,jdbcType=VARCHAR},
 		WeiXinPwd = #{weixinpwd,jdbcType=VARCHAR},
-		WeiBo =
-		#{weibo,jdbcType=VARCHAR},
+		WeiBo = #{weibo,jdbcType=VARCHAR},
 		WeiBoPwd = #{weibopwd,jdbcType=VARCHAR},
 		TotalNumber = #{totalnumber,jdbcType=INTEGER},
-		TotalCalorie =
-		#{totalcalorie,jdbcType=DECIMAL},
-		TotalKilometer =
-		#{totalkilometer,jdbcType=DECIMAL},
-		TotalStep =
-		#{totalstep,jdbcType=INTEGER},
-		TotalDataTime =
-		#{totaldatatime,jdbcType=TIMESTAMP},
-		TenKmRank =
-		#{tenkmrank,jdbcType=INTEGER},
-		FriendRank =
-		#{friendrank,jdbcType=INTEGER},
+		TotalCalorie = #{totalcalorie,jdbcType=DECIMAL},
+		TotalKilometer = #{totalkilometer,jdbcType=DECIMAL},
+		TotalStep = #{totalstep,jdbcType=INTEGER},
+		TotalDataTime = #{totaldatatime,jdbcType=TIMESTAMP},
+		TenKmRank = #{tenkmrank,jdbcType=INTEGER},
+		FriendRank = #{friendrank,jdbcType=INTEGER},
 		IsDeleted = #{isdeleted,jdbcType=BIT},
 		Reserved1 = #{reserved1,jdbcType=INTEGER},
-		Reserved2 =
-		#{reserved2,jdbcType=INTEGER},
+		Reserved2 = #{reserved2,jdbcType=INTEGER},
 		Reserved3 =
 		#{reserved3,jdbcType=DECIMAL},
 		Reserved4 =
@@ -728,5 +726,9 @@
 		where Id =
 		#{id,jdbcType=INTEGER}
 	</update>
-
+	
+	<!-- 返回个人信息字段 -->
+	<select id="returnRegist" parameterType="java.lang.String" resultType="com.lst.model.LoginBody">
+		select id userid,mobileNo,password,nickName,height,weight,sex,birthday,portrait from mst_user where mobileNo = #{mobileNo,jdbcType=VARCHAR}
+	</select>
 </mapper>

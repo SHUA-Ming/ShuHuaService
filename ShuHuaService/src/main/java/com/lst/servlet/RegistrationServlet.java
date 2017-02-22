@@ -54,42 +54,12 @@ public class RegistrationServlet extends BaseServlet implements
 	private static MstUserMapper mstUserMapper = ctx
 			.getBean(MstUserMapper.class);
 
-	/*
-	 * (非 Javadoc) <p>Title: doGet</p> <p>Description: </p>
-	 * 
-	 * @param req
-	 * 
-	 * @param resp
-	 * 
-	 * @throws ServletException
-	 * 
-	 * @throws IOException
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
-	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		this.doPost(req, resp);
 	}
 
-	/*
-	 * (非 Javadoc) <p>Title: doPost</p> <p>Description: </p>
-	 * 
-	 * @param req
-	 * 
-	 * @param resp
-	 * 
-	 * @throws ServletException
-	 * 
-	 * @throws IOException
-	 * 
-	 * @see
-	 * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
-	 * , javax.servlet.http.HttpServletResponse)
-	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -99,20 +69,20 @@ public class RegistrationServlet extends BaseServlet implements
 
 			//获取值
 			String mobileNo = req.getParameter("mobileNo");
-			String passWord = req.getParameter("passWord");
-			String confirmPassWord = req.getParameter("confirmPassWord");
+			String password = req.getParameter("password");
+			String confirmPassword = req.getParameter("confirmPassword");
 			
 			//判断
 			if(StringUtils.isBlank(mobileNo)){
 				mstUserResPara.setCode(CommCode.M_ERROR);
 				mstUserResPara.setMessage(CommCode.M_BP00105);
-			}else if(StringUtils.isBlank(passWord)){
+			}else if(StringUtils.isBlank(password)){
 				mstUserResPara.setCode(CommCode.M_ERROR);
 				mstUserResPara.setMessage(CommCode.M_A000013);
-			}else if(StringUtils.isBlank(confirmPassWord)){
+			}else if(StringUtils.isBlank(confirmPassword)){
 				mstUserResPara.setCode(CommCode.M_ERROR);
 				mstUserResPara.setMessage(CommCode.M_A000016);
-			}else if(!passWord.equals(confirmPassWord)){
+			}else if(!password.equals(confirmPassword)){
 				mstUserResPara.setCode(CommCode.M_ERROR);
 				mstUserResPara.setMessage(CommCode.M_A000017);
 			}else{  //创建用户
@@ -120,7 +90,7 @@ public class RegistrationServlet extends BaseServlet implements
 				mstUser.setMobileno(mobileNo);
 				MstUser mstuser = mstUserMapper.selectByMobileno(mstUser);
 				if(mstuser == null){  //判断该用户是否存在
-					mstUser.setPassword(passWord);
+					mstUser.setPassword(password);
 					mstUser.setCreatedate(new Date());
 					mstUser.setType(1);
 					mstUser.setIsdeleted(false);
@@ -128,7 +98,6 @@ public class RegistrationServlet extends BaseServlet implements
 					if (count > 0) {
 						mstUserResPara.setCode(CommCode.M_SUCCESSC);
 						mstUserResPara.setMessage(CommCode.M_Y000001);
-						mstUserResPara.setMstuser(mstUser);
 					} else {
 						mstUserResPara.setCode(CommCode.M_ERROR);
 						mstUserResPara.setMessage(CommCode.M_A000015);

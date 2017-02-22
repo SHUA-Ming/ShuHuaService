@@ -30,8 +30,10 @@ public class MstUser implements Serializable {
 	private BigDecimal weight;
 	@Expose
 	private Integer height;
+	
+	private String sex;
 	@Expose
-	private Date birthday;
+	private String birthday;
 	@Expose
 	private String email;
 	@Expose
@@ -156,6 +158,14 @@ public class MstUser implements Serializable {
 		this.gender = gender;
 	}
 
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
 	public String getMobileno() {
 		return mobileno;
 	}
@@ -180,11 +190,11 @@ public class MstUser implements Serializable {
 		this.height = height;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 

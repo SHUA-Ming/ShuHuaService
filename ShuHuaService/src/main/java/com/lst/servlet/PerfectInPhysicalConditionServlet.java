@@ -67,7 +67,7 @@ public class PerfectInPhysicalConditionServlet extends BaseServlet implements
 			String userId = req.getParameter("userId");
 			int matUserId = Integer.parseInt(userId);
 			String name = req.getParameter("name");
-			String gender = req.getParameter("gender");  //性别: 0或1
+			String sex = req.getParameter("sex");  //性别: 0或1
 			String weight = req.getParameter("weight");  //身高
 			String height = req.getParameter("height");  //体重
 			String birthday = req.getParameter("birthday");
@@ -75,18 +75,14 @@ public class PerfectInPhysicalConditionServlet extends BaseServlet implements
 			
 			user.setId(matUserId);
 			user.setName(name);
-			if (gender.equals("0")) {
+			if (sex.equals("0")) {
 				user.setGender(false);
-			} else if (gender.equals("1")) {
+			} else if (sex.equals("1")) {
 				user.setGender(true);
 			}
 			user.setWeight(BigDecimal.valueOf(Integer.parseInt(weight)));
 			user.setHeight(Integer.parseInt(height));
-			try {
-				user.setBirthday(DateUtil.parse(birthday,DateUtil.ALL_DATE_HORIZONTAL));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			user.setBirthday(birthday);
 			int count = mstUserMapper.updateByPrimaryKeySelective(user);
 			
 			if (count > 0) {

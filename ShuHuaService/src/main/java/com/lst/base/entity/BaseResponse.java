@@ -14,6 +14,7 @@
 package com.lst.base.entity;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import com.google.gson.annotations.Expose;
 
@@ -33,8 +34,6 @@ public class BaseResponse implements Serializable {
 	protected String code;
 	@Expose
 	protected String message;
-	@Expose
-	protected String registered;
 
 	/**
 	 * @return the code
@@ -64,22 +63,5 @@ public class BaseResponse implements Serializable {
 	 */
 	public void setMessage(String message) {
 		this.message = message;
-	}
-	
-
-
-	/**
-	 * @return the registered
-	 */
-	public String getRegistered() {
-		return registered;
-	}
-
-	/**
-	 * @param registered
-	 *            the registered to set
-	 */
-	public void setRegistered(String registered) {
-		this.registered = registered;
 	}
 }

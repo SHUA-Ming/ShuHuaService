@@ -48,9 +48,6 @@ public class MotionRecordServlet extends BaseServlet implements
 	private static UserMotionRecordMapper userMotionRecordMapper = ctx
 			.getBean(UserMotionRecordMapper.class);
 
-	private static MstUserMapper mstUserMapper = ctx
-			.getBean(MstUserMapper.class);
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -87,22 +84,6 @@ public class MotionRecordServlet extends BaseServlet implements
 			}else if(StringUtils.isBlank(mark)){
 				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00322);
-			}else if(mark.equals("indoor")){
-				if (StringUtils.isBlank(machineId)) {
-					machineResPara.setCode(CommCode.M_ERROR);
-					machineResPara.setMessage(CommCode.M_BP00302);
-				}else if (StringUtils.isBlank(heartRate)) {
-					machineResPara.setCode(CommCode.M_ERROR);
-					machineResPara.setMessage(CommCode.M_BP00315);
-				}else if(StringUtils.isBlank(averageGrade)){
-					machineResPara.setCode(CommCode.M_ERROR);
-					machineResPara.setMessage(CommCode.M_BP00316);
-				}
-			}else if(mark.equals("outdoor")){
-				if (StringUtils.isBlank(averageSpeed)) {
-					machineResPara.setCode(CommCode.M_ERROR);
-					machineResPara.setMessage(CommCode.M_BP00317);
-				}
 			}else if(StringUtils.isBlank(startDate)){
 				machineResPara.setCode(CommCode.M_ERROR);
 				machineResPara.setMessage(CommCode.M_BP00303);
@@ -133,12 +114,28 @@ public class MotionRecordServlet extends BaseServlet implements
 			}else {
 				UserMotionRecord userMotionRecord = new UserMotionRecord();
 				userMotionRecord.setUserId(Integer.parseInt(userId));
-				if(mark.equals("indoor")){
-					userMotionRecord.setMachineId(Integer.parseInt(machineId));
-					userMotionRecord.setHeartRate(Integer.parseInt(heartRate));
-					userMotionRecord.setAverageGrade(Float.parseFloat(averageGrade));
-				}else{
-					userMotionRecord.setAverageSpeed(Integer.parseInt(averageSpeed));
+				if(mark.equals("indoor")){  //室内
+					if (StringUtils.isBlank(machineId)) {
+						machineResPara.setCode(CommCode.M_ERROR);
+						machineResPara.setMessage(CommCode.M_BP00302);
+					}else if (StringUtils.isBlank(heartRate)) {
+						machineResPara.setCode(CommCode.M_ERROR);
+						machineResPara.setMessage(CommCode.M_BP00315);
+					}else if(StringUtils.isBlank(averageGrade)){
+						machineResPara.setCode(CommCode.M_ERROR);
+						machineResPara.setMessage(CommCode.M_BP00316);
+					}else{
+						userMotionRecord.setMachineId(Integer.parseInt(machineId));
+						userMotionRecord.setHeartRate(Integer.parseInt(heartRate));
+						userMotionRecord.setAverageGrade(Float.parseFloat(averageGrade));
+					}
+				}else if(mark.equals("outdoor")){  //户外
+					if (StringUtils.isBlank(averageSpeed)) {
+						machineResPara.setCode(CommCode.M_ERROR);
+						machineResPara.setMessage(CommCode.M_BP00317);
+					}else{
+						userMotionRecord.setAverageSpeed(Integer.parseInt(averageSpeed));
+					}
 				}
 				
 				if (!"".equals(userPlanId) && userPlanId != null) {
@@ -184,6 +181,7 @@ public class MotionRecordServlet extends BaseServlet implements
 		out.close();
 		
 	}
+	
 	@Override
 	public ReocrdReqPara getReqPara(HttpServletRequest request) {
 		return null;

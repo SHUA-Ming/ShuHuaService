@@ -122,34 +122,8 @@ public class ForgetPwdServlet extends BaseServlet implements
 		}
 	}
 
-	/*
-	 * (非 Javadoc) <p>Title: getReqPara</p> <p>Description: </p>
-	 * 
-	 * @param request
-	 * 
-	 * @return
-	 * 
-	 * @see
-	 * com.lst.servlet.IBaseServlet#getReqPara(javax.servlet.http.HttpServletRequest
-	 * )
-	 */
 	@Override
 	public MstUserReqPara getReqPara(HttpServletRequest request) {
-		MstUserReqPara mstUserReqPara = null;
-
-		try {
-			BaseRequest baseRequest = RequestUtils.getRequestPara(request,
-					new MstUserReqPara());
-
-			mstUserReqPara = (MstUserReqPara) baseRequest.clone();
-
-			mstUserReqPara.setMobileno(request.getParameter("mobileno"));
-			mstUserReqPara.setNewpwd(request.getParameter("newpwd"));
-
-		} catch (Exception e) {
-			log.error(" MstUserReqPara error : " + e.getMessage(), e);
-		}
-
-		return mstUserReqPara;
+		return null;
 	}
 }
